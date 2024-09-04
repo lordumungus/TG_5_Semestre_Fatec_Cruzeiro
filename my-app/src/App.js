@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
 import './App.css';
 
-function Home() {
+function Home({ userEmail }) {
   return (
     <div>
       <h1>Bem-vindo ao Meu App!</h1>
+      {userEmail && <p>Você está logado como: {userEmail}</p>}
     </div>
   );
 }
@@ -34,7 +35,7 @@ function Login({ onLogin }) {
     e.preventDefault();
     // Verificação simples
     if (email === 'lele@gmail.com' && password === '1234') {
-      onLogin(true);
+      onLogin(email); // Passando o email para o estado de login
       navigate('/');
     } else {
       alert('Login ou senha incorretos');
@@ -75,6 +76,17 @@ function Login({ onLogin }) {
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userEmail, setUserEmail] = useState('');
+
+  const handleLogin = (email) => {
+    setIsAuthenticated(true);
+    setUserEmail(email);
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setUserEmail('');
+  };
 
   return (
     <Router>
@@ -87,7 +99,10 @@ function App() {
             <Link to="#offers">Ofertas</Link>
             <Link to="#contact">Contato</Link>
             {isAuthenticated ? (
-              <Link to="/" onClick={() => setIsAuthenticated(false)}>Logout</Link>
+              <>
+                <span className="user-email">{userEmail}</span>
+                <Link to="/" onClick={handleLogout}>Logout</Link>
+              </>
             ) : (
               <Link to="/login">Login</Link>
             )}
@@ -96,9 +111,9 @@ function App() {
 
         <main className="main">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home userEmail={userEmail} />} />
             <Route path="/categories" element={<Categories />} />
-            <Route path="/login" element={<Login onLogin={setIsAuthenticated} />} />
+            <Route path="/login" element={<Login onLogin={handleLogin} />} />
           </Routes>
         </main>
 
