@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
 import './App.css';
 
 function Home() {
@@ -25,18 +25,47 @@ function Categories() {
   );
 }
 
-function Login() {
+function Login({ onLogin }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Verificação simples
+    if (email === 'lele@gmail.com' && password === '1234') {
+      onLogin(true);
+      navigate('/');
+    } else {
+      alert('Login ou senha incorretos');
+    }
+  };
+
   return (
     <div className="login-form">
       <h2>Login</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="email">E-mail:</label>
-          <input type="email" id="email" name="email" required />
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
         </div>
         <div className="form-group">
           <label htmlFor="password">Senha:</label>
-          <input type="password" id="password" name="password" required />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
         </div>
         <button type="submit">Entrar</button>
       </form>
@@ -45,6 +74,8 @@ function Login() {
 }
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   return (
     <Router>
       <div className="app">
@@ -52,9 +83,14 @@ function App() {
           <div className="logo">My App</div>
           <nav className="nav">
             <Link to="/">Home</Link>
-            <Link to="/categories">Categorias</Link>
+            <Link to="/categories">Categorias</Link>            
             <Link to="#offers">Ofertas</Link>
             <Link to="#contact">Contato</Link>
+            {isAuthenticated ? (
+              <Link to="/" onClick={() => setIsAuthenticated(false)}>Logout</Link>
+            ) : (
+              <Link to="/login">Login</Link>
+            )}
           </nav>
         </header>
 
@@ -62,12 +98,12 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/categories" element={<Categories />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<Login onLogin={setIsAuthenticated} />} />
           </Routes>
         </main>
 
         <footer className="footer">
-          <p>&copy; 2024 Mercado Livre Clone. Todos os direitos reservados.</p>
+          <p>&copy; 2024 MY APP. Todos os direitos reservados.</p>
           <div className="footer-links">
             <Link to="#privacy">Política de Privacidade</Link>
             <Link to="#terms">Termos de Serviço</Link>
