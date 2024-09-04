@@ -1,30 +1,15 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
 import './App.css';
+import Categories from './paginas/Categories';
+import Ofertas from './paginas/Ofertas';
+import Contato from './paginas/Contato';
+import Home from './paginas/Home';
 
-function Home({ userEmail }) {
-  return (
-    <div>
-      <h1>Bem-vindo ao Meu App!</h1>
-      {userEmail && <p>Você está logado como: {userEmail}</p>}
-    </div>
-  );
-}
 
-function Categories() {
-  return (
-    <div>
-      <h1>Categorias de Serviços</h1>
-      <ul>
-        <li>Consultoria</li>
-        <li>Design Gráfico</li>
-        <li>Desenvolvimento Web</li>
-        <li>Marketing Digital</li>
-        <li>Suporte Técnico</li>
-      </ul>
-    </div>
-  );
-}
+
+
+
 
 function Login({ onLogin }) {
   const [email, setEmail] = useState('');
@@ -96,8 +81,8 @@ function App() {
           <nav className="nav">
             <Link to="/">Home</Link>
             <Link to="/categories">Categorias</Link>            
-            <Link to="#offers">Ofertas</Link>
-            <Link to="#contact">Contato</Link>
+            <Link to="/offers">Ofertas</Link>
+            <Link to="/contact">Contato</Link>
             {isAuthenticated ? (
               <>
                 <span className="user-email">{userEmail}</span>
@@ -113,6 +98,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Home userEmail={userEmail} />} />
             <Route path="/categories" element={<Categories />} />
+            <Route path="/offers" element={<Ofertas />} />
+            <Route path="/contact" element={<Contato />} />
+            
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
           </Routes>
         </main>
