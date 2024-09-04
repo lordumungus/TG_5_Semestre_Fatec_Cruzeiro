@@ -5,11 +5,7 @@ import Categories from './paginas/Categories';
 import Ofertas from './paginas/Ofertas';
 import Contato from './paginas/Contato';
 import Home from './paginas/Home';
-
-
-
-
-
+import AddService from './paginas/AddService';
 
 function Login({ onLogin }) {
   const [email, setEmail] = useState('');
@@ -62,6 +58,7 @@ function Login({ onLogin }) {
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userEmail, setUserEmail] = useState('');
+  const [services, setServices] = useState([]);
 
   const handleLogin = (email) => {
     setIsAuthenticated(true);
@@ -71,6 +68,10 @@ function App() {
   const handleLogout = () => {
     setIsAuthenticated(false);
     setUserEmail('');
+  };
+
+  const handleAddService = (service) => {
+    setServices([...services, service]);
   };
 
   return (
@@ -86,6 +87,7 @@ function App() {
             {isAuthenticated ? (
               <>
                 <span className="user-email">{userEmail}</span>
+                <Link to="/add-service">Adicionar Serviço</Link>
                 <Link to="/" onClick={handleLogout}>Logout</Link>
               </>
             ) : (
@@ -100,7 +102,7 @@ function App() {
             <Route path="/categories" element={<Categories />} />
             <Route path="/offers" element={<Ofertas />} />
             <Route path="/contact" element={<Contato />} />
-            
+            <Route path="/add-service" element={isAuthenticated ? <AddService onAddService={handleAddService} /> : <Login onLogin={handleLogin} />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
           </Routes>
         </main>
