@@ -1,64 +1,18 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './App.css';
 import Categories from './paginas/Categories';
 import Ofertas from './paginas/Ofertas';
 import Contato from './paginas/Contato';
 import Home from './paginas/Home';
 import AddService from './paginas/AddService';
-
-function Login({ onLogin }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const navigate = useNavigate();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Verificação simples
-    if (email === 'lele@gmail.com' && password === '1234') {
-      onLogin(email); // Passando o email para o estado de login
-      navigate('/');
-    } else {
-      alert('Login ou senha incorretos');
-    }
-  };
-
-  return (
-    <div className="login-form">
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="email">E-mail:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Senha:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Entrar</button>
-      </form>
-    </div>
-  );
-}
+import Login from './paginas/Login';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userEmail, setUserEmail] = useState('');
-  const [services, setServices] = useState([]);
+  const [services, setServices] = useState([]); // Estado para armazenar os serviços adicionados
+  const [showAddService, setShowAddService] = useState(false);
 
   const handleLogin = (email) => {
     setIsAuthenticated(true);
@@ -70,8 +24,9 @@ function App() {
     setUserEmail('');
   };
 
-  const handleAddService = (service) => {
-    setServices([...services, service]);
+  const handleAddService = (newService) => {
+    setServices([...services, newService]);
+    setShowAddService(false); // Ocultar o formulário após adicionar o serviço
   };
 
   return (
@@ -87,8 +42,8 @@ function App() {
             {isAuthenticated ? (
               <>
                 <span className="user-email">{userEmail}</span>
-                <Link to="/add-service">Adicionar Serviço</Link>
                 <Link to="/" onClick={handleLogout}>Logout</Link>
+                <button onClick={() => setShowAddService(true)}>Adicionar Serviço</button> {/* Botão para exibir o formulário */}
               </>
             ) : (
               <Link to="/login">Login</Link>
@@ -98,13 +53,13 @@ function App() {
 
         <main className="main">
           <Routes>
-            <Route path="/" element={<Home userEmail={userEmail} />} />
+            <Route path="/" element={<Home services={services} userEmail={userEmail} />} />
             <Route path="/categories" element={<Categories />} />
             <Route path="/offers" element={<Ofertas />} />
             <Route path="/contact" element={<Contato />} />
-            <Route path="/add-service" element={isAuthenticated ? <AddService onAddService={handleAddService} /> : <Login onLogin={handleLogin} />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
           </Routes>
+          {showAddService && <AddService onAddService={handleAddService} />} {/* Exibir o formulário se o estado for true */}
         </main>
 
         <footer className="footer">
