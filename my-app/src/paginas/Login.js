@@ -1,20 +1,36 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-//import './Login.css'; // Importar o CSS se houver um
 
 function Login({ onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState(''); // Para exibir mensagens de erro ou sucesso
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Verificação simples
-    if (email === 'lele@gmail.com' && password === '1234') {
-      onLogin(email); // Passando o email para o estado de login
-      navigate('/');
-    } else {
-      alert('Login ou senha incorretos');
+    setMessage(''); // Limpar mensagem antes de tentar login
+
+    try {
+      const response = await fetch('http://localhost:5000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        onLogin(email); // Função passada via props para armazenar o estado de login
+        navigate('/'); // Redireciona para a página principal
+      } else {
+        setMessage(data.error); // Exibe a mensagem de erro
+      }
+    } catch (error) {
+      console.error('Erro ao fazer login:', error);
+      setMessage('Erro ao fazer login. Tente novamente.');
     }
   };
 
@@ -46,6 +62,9 @@ function Login({ onLogin }) {
         </div>
         <button type="submit">Entrar</button>
       </form>
+      
+      {/* Exibe mensagem de erro ou sucesso */}
+      {message && <p>{message}</p>}
     </div>
   );
 }
