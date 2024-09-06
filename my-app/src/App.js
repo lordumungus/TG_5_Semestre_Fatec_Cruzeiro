@@ -7,11 +7,13 @@ import Contato from './paginas/Contato';
 import Home from './paginas/Home';
 import AddService from './paginas/AddService';
 import Login from './paginas/Login';
+import Cadastro from './paginas/Cadastro';
+import Rodape from './paginas/Rodape';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userEmail, setUserEmail] = useState('');
-  const [services, setServices] = useState([]); // Estado para armazenar os serviços adicionados
+  const [services, setServices] = useState([]);
   const [showAddService, setShowAddService] = useState(false);
 
   const handleLogin = (email) => {
@@ -24,9 +26,15 @@ function App() {
     setUserEmail('');
   };
 
+  // Definindo handleRegister para o cadastro de novos usuários
+  const handleRegister = (email, password) => {
+    console.log("Usuário cadastrado:", email);
+    // Lógica para cadastrar usuários
+  };
+
   const handleAddService = (newService) => {
     setServices([...services, newService]);
-    setShowAddService(false); // Ocultar o formulário após adicionar o serviço
+    setShowAddService(false);
   };
 
   return (
@@ -39,11 +47,13 @@ function App() {
             <Link to="/categories">Categorias</Link>            
             <Link to="/offers">Ofertas</Link>
             <Link to="/contact">Contato</Link>
+            <Link to="/cadastro">Cadastro</Link>
+            
             {isAuthenticated ? (
               <>
                 <span className="user-email">{userEmail}</span>
                 <Link to="/" onClick={handleLogout}>Logout</Link>
-                <button onClick={() => setShowAddService(true)}>Adicionar Serviço</button> {/* Botão para exibir o formulário */}
+                <button onClick={() => setShowAddService(true)}>Adicionar Serviço</button>
               </>
             ) : (
               <Link to="/login">Login</Link>
@@ -58,17 +68,12 @@ function App() {
             <Route path="/offers" element={<Ofertas />} />
             <Route path="/contact" element={<Contato />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
+            <Route path="/cadastro" element={<Cadastro onRegister={handleRegister} />} />
           </Routes>
-          {showAddService && <AddService onAddService={handleAddService} />} {/* Exibir o formulário se o estado for true */}
+          {showAddService && <AddService onAddService={handleAddService} />}
         </main>
 
-        <footer className="footer">
-          <p>&copy; 2024 MY APP. Todos os direitos reservados.</p>
-          <div className="footer-links">
-            <Link to="#privacy">Política de Privacidade</Link>
-            <Link to="#terms">Termos de Serviço</Link>
-          </div>
-        </footer>
+        <Rodape/>
       </div>
     </Router>
   );
