@@ -97,6 +97,18 @@ app.post('/add-service', (req, res) => {
   }
 });
 
+// Rota para buscar todos os serviços
+app.get('/api/services', (req, res) => {
+  db.all('SELECT * FROM services', [], (err, rows) => {
+    if (err) {
+      console.error('Erro ao buscar serviços:', err.message);
+      res.status(500).json({ error: 'Erro ao buscar serviços' });
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
 // Iniciar o servidor
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
