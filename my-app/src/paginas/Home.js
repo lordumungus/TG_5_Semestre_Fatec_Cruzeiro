@@ -1,14 +1,23 @@
 import React from 'react';
 
-function Home({ services }) {
+// Componente para o container de boas-vindas
+function WelcomeContainer() {
   return (
-    <div>
+    <div className="welcome-container">
       <h1>Bem-vindo ao Meu App!</h1>
+    </div>
+  );
+}
+
+// Componente para o container de serviços
+function ServicesContainer({ services }) {
+  return (
+    <div className="services-container">
       <h2>Serviços Adicionados</h2>
       {services.length > 0 ? (
-        <ul>
+        <ul className="services-list">
           {services.map((service, index) => (
-            <li key={index}>
+            <li key={index} className="service-box">
               <strong>Serviço:</strong> {service.name} - <strong>R${service.rate} por hora</strong>
             </li>
           ))}
@@ -16,6 +25,16 @@ function Home({ services }) {
       ) : (
         <p>Nenhum serviço adicionado ainda.</p>
       )}
+    </div>
+  );
+}
+
+// Componente principal Home
+function Home({ services }) {
+  return (
+    <div>
+      <WelcomeContainer />
+      <ServicesContainer services={services} />
     </div>
   );
 }
