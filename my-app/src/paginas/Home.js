@@ -1,10 +1,9 @@
 import React from 'react';
 
-function Home({ services, userEmail }) {
+function Home({ services }) {
   return (
     <div>
       <h1>Bem-vindo ao Meu App!</h1>
-      {userEmail && <p>Você está logado como: {userEmail}</p>}
       <h2>Serviços Adicionados</h2>
       {services.length > 0 ? (
         <ul>

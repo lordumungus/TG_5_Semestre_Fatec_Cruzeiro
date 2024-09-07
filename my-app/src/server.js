@@ -28,6 +28,18 @@ const db = new sqlite3.Database('./banco/database.db', (err) => {
         console.log('Tabela de usuários garantida.');
       }
     });
+    // Criar a tabela de serviços se não existir
+    db.run(`CREATE TABLE IF NOT EXISTS services (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      rate INTEGER NOT NULL
+    )`, (err) => {
+      if (err) {
+        console.error('Erro ao criar a tabela de serviços:', err.message);
+      } else {
+        console.log('Tabela de serviços garantida.');
+      }
+    });
   }
 });
 
@@ -61,6 +73,23 @@ app.post('/login', (req, res) => {
         res.status(200).json({ message: 'Login bem-sucedido', user: row });
       } else {
         res.status(401).json({ error: 'Email ou senha incorretos' });
+      }
+    });
+  } else {
+    res.status(400).json({ error: 'Dados incompletos' });
+  }
+});
+
+// Rota para adicionar serviço
+app.post('/add-service', (req, res) => {
+  const { name, rate } = req.body;
+  if (name && rate) {
+    db.run('INSERT INTO services (name, rate) VALUES (?, ?)', [name, rate], (err) => {
+      if (err) {
+        console.error('Erro ao adicionar serviço:', err.message);
+        res.status(500).json({ error: 'Erro ao adicionar serviço' });
+      } else {
+        res.status(201).json({ message: 'Serviço adicionado com sucesso!' });
       }
     });
   } else {

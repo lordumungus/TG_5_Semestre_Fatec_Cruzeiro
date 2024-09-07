@@ -70,7 +70,9 @@ function App() {
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
             <Route path="/cadastro" element={<Cadastro onRegister={handleRegister} />} />
           </Routes>
-          {showAddService && <AddService onAddService={handleAddService} />}
+          {showAddService && <AddService userEmail={userEmail} onAddService={handleAddService} />}
+        
+
         </main>
 
         <Rodape/>
