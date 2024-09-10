@@ -55,11 +55,11 @@ function App() {
           <div className="logo">My App</div>
           <nav className="nav">
             <Link to="/">Home</Link>
-            <Link to="/categories">Categorias</Link>            
+            <Link to="/categories">Categorias</Link>
             <Link to="/offers">Ofertas</Link>
             <Link to="/contact">Contato</Link>
             <Link to="/cadastro">Cadastro</Link>
-            
+
             {isAuthenticated ? (
               <>
                 <span className="user-email">{userEmail}</span>
@@ -81,10 +81,10 @@ function App() {
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
             <Route path="/cadastro" element={<Cadastro onRegister={handleRegister} />} />
           </Routes>
-          {showAddService && <AddService onAddService={handleAddService} />}
+          {showAddService && <AddService onAddService={handleAddService} userEmail={userEmail} />}
         </main>
 
-        <Rodape/>
+        <Rodape />
       </div>
     </Router>
   );

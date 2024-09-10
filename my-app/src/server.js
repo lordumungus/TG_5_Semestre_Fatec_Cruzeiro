@@ -32,7 +32,8 @@ const db = new sqlite3.Database('./banco/database.db', (err) => {
     db.run(`CREATE TABLE IF NOT EXISTS services (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
-      rate INTEGER NOT NULL
+      rate INTEGER NOT NULL,
+      userEmail TEXT NOT NULL
     )`, (err) => {
       if (err) {
         console.error('Erro ao criar a tabela de serviços:', err.message);
@@ -82,9 +83,9 @@ app.post('/login', (req, res) => {
 
 // Rota para adicionar serviço
 app.post('/add-service', (req, res) => {
-  const { name, rate } = req.body;
-  if (name && rate) {
-    db.run('INSERT INTO services (name, rate) VALUES (?, ?)', [name, rate], (err) => {
+  const { name, rate, userEmail } = req.body;
+  if (name && rate && userEmail) {
+    db.run('INSERT INTO services (name, rate, userEmail) VALUES (?, ?, ?)', [name, rate, userEmail], (err) => {
       if (err) {
         console.error('Erro ao adicionar serviço:', err.message);
         res.status(500).json({ error: 'Erro ao adicionar serviço' });

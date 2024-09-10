@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Modal.css';
 
-function AddService({ onAddService }) {
+function AddService({ onAddService, userEmail }) {
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [serviceName, setServiceName] = useState('');
   const [hourlyRate, setHourlyRate] = useState('');
@@ -23,13 +23,14 @@ function AddService({ onAddService }) {
         body: JSON.stringify({
           name: serviceName,
           rate: hourlyRate,
+          userEmail: userEmail,
         }),
       })
       .then((response) => response.json())
       .then((data) => {
         if (data.message) {
           alert(data.message);
-          onAddService({ name: serviceName, rate: hourlyRate });
+          onAddService({ name: serviceName, rate: hourlyRate, userEmail: userEmail });
           closeModal();
         } else if (data.error) {
           alert(data.error);

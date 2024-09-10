@@ -1,10 +1,11 @@
+// Home.js
 import React from 'react';
 
 // Componente para o container de boas-vindas
-function WelcomeContainer() {
+function WelcomeContainer({ userEmail }) {
   return (
     <div className="welcome-container">
-      <h1>Bem-vindo ao Meu App!</h1>
+      <h1>Bem-vindo, {userEmail || 'Usuário'}!</h1>
     </div>
   );
 }
@@ -18,7 +19,9 @@ function ServicesContainer({ services }) {
         <ul className="services-list">
           {services.map((service, index) => (
             <li key={index} className="service-box">
-              <strong>Serviço:</strong> {service.name} - <strong>R${service.rate} por hora</strong>
+              <strong>Serviço:</strong> {service.name} - 
+              <strong>R$ {service.rate} por hora
+              </strong> {service.userEmail && <span> Adicionado por: {service.userEmail}</span>}
             </li>
           ))}
         </ul>
@@ -30,10 +33,10 @@ function ServicesContainer({ services }) {
 }
 
 // Componente principal Home
-function Home({ services }) {
+function Home({ services, userEmail }) {
   return (
     <div>
-      <WelcomeContainer />
+      <WelcomeContainer userEmail={userEmail} />
       <ServicesContainer services={services} />
     </div>
   );
