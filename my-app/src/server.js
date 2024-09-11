@@ -44,22 +44,43 @@ const db = new sqlite3.Database('./banco/database.db', (err) => {
   }
 });
 
-// Rota para cadastro de usuário
 app.post('/register', (req, res) => {
-  const { email, password } = req.body;
-  if (email && password) {
-    db.run('INSERT INTO users (email, password) VALUES (?, ?)', [email, password], (err) => {
+  const { email, password, nome, cpf, telefone, endereco } = req.body;
+
+  // Verifica se todos os campos estão presentes
+  if (email && password && nome && cpf && telefone && endereco) {
+    // Primeiro, verifica se o email já existe no banco de dados
+    db.get('SELECT * FROM users WHERE email = ?', [email], (err, row) => {
       if (err) {
-        console.error('Erro ao registrar usuário:', err.message);
-        res.status(500).json({ error: 'Erro ao registrar usuário' });
-      } else {
-        res.status(201).json({ message: 'Usuário cadastrado com sucesso!' });
+        console.error('Erro ao verificar email:', err.message);
+        return res.status(500).json({ error: 'Erro ao verificar email' });
       }
+
+      if (row) {
+        // Se o email já existe, retorna erro
+        return res.status(400).json({ error: 'Email já cadastrado' });
+      }
+
+      // Se o email não existe, insere o novo usuário no banco de dados
+      db.run(
+        'INSERT INTO users (email, password, nome, cpf, telefone, endereco) VALUES (?, ?, ?, ?, ?, ?)',
+        [email, password, nome, cpf, telefone, endereco],
+        (err) => {
+          if (err) {
+            console.error('Erro ao registrar usuário:', err.message);
+            return res.status(500).json({ error: 'Erro ao registrar usuário' });
+          } else {
+            return res.status(201).json({ message: 'Usuário cadastrado com sucesso!' });
+          }
+        }
+      );
     });
   } else {
     res.status(400).json({ error: 'Dados incompletos' });
   }
 });
+
+
 
 // Rota para login de usuário
 app.post('/login', (req, res) => {
