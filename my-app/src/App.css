@@ -1,23 +1,20 @@
-/* Reset básico para remover margens e paddings */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* Estilo global */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
+  background-color: #f0f0f0; /* Fundo cinza claro */
+  color: #333; /* Texto padrão escuro */
 }
 
+/* Configurações gerais do app */
 .app {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
+/* Cabeçalho */
 .header {
-  background-color: #ffca28;
+  background-color: #ffca28; /* Laranja para o cabeçalho */
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
@@ -27,11 +24,12 @@ body {
 .logo {
   font-size: 24px;
   font-weight: bold;
+  color: white; /* Branco para o texto do logo */
 }
 
 .nav a {
   margin: 0 15px;
-  color: #333;
+  color: #fff; /* Links em branco no cabeçalho */
   text-decoration: none;
 }
 
@@ -39,57 +37,42 @@ body {
   text-decoration: underline;
 }
 
+/* Botões */
+button, .btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover, .btn:hover {
+  opacity: 0.9;
+}
+
+.btn {
+  background-color: #007bff; /* Azul padrão */
+  color: white;
+}
+
+button.btn-login {
+  background-color: #ffca28; /* Botão de login em laranja */
+  color: #fff;
+}
+
+/* Fundo cinza claro para o corpo do site */
 .main {
   flex: 1;
+  background-color: #f0f0f0;
+  padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
 }
 
-.login-form {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.login-form h2 {
-  margin-bottom: 20px;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-.form-group input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-button {
-  background-color: #ffca28;
-  border: none;
-  padding: 10px;
-  color: #333;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-button:hover {
-  background-color: #e0a800;
-}
-
+/* Rodapé */
 .footer {
-  background-color: #333;
+  background-color: #333; /* Rodapé em cinza escuro */
   color: #fff;
   text-align: center;
   padding: 10px;
@@ -109,52 +92,40 @@ button:hover {
   text-decoration: underline;
 }
 
-button {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  background-color: #007bff;
+/* Carrossel */
+.banner-carousel .banner-slide {
   color: white;
-  font-size: 16px;
-  cursor: pointer;
-  margin-left: 10px;
 }
 
-button:hover {
-  background-color: #0056b3;
+.banner-carousel .banner-slide img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
 }
 
-.loading-spinner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+.banner-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 10px;
 }
 
+.banner-text h1 {
+  font-size: 36px;
+}
+
+.banner-text p {
+  font-size: 18px;
+}
+
+/* Spinner de carregamento */
 .spinner {
   border: 8px solid #f3f3f3;
-  border-top: 8px solid #3498db;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  animation: spin 0.5s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.loading-spinner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 200px;
-}
-
-.spinner {
-  border: 8px solid #f3f3f3;
-  border-top: 8px solid #3498db;
+  border-top: 8px solid #3498db; /* Azul para o spinner de carregamento */
   border-radius: 50%;
   width: 60px;
   height: 60px;
@@ -165,5 +136,3 @@ button:hover {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-
-

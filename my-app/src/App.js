@@ -52,7 +52,9 @@ function App() {
     <Router>
       <div className="app">
         <header className="header">
-          <div className="logo">My App</div>
+          <div className="logo">
+            <img src="logo.png" alt="My App" />
+          </div>
           <nav className="nav">
             <Link to="/">Home</Link>
             <Link to="/categories">Categorias</Link>

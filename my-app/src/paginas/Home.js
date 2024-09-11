@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import Slider from "react-slick";
+import './Home.css';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-// Componente de animação de loading
 function LoadingSpinner() {
   return (
     <div className="loading-spinner">
       <div className="spinner"></div>
-      <p>Carregando...    </p>
+      <p>Carregando...</p>
     </div>
   );
 }
 
-// Componente para o container de boas-vindas
 function WelcomeContainer({ userEmail }) {
   return (
     <div className="welcome-container">
@@ -19,18 +21,16 @@ function WelcomeContainer({ userEmail }) {
   );
 }
 
-// Componente para o container de serviços
 function ServicesContainer({ services }) {
   return (
     <div className="services-container">
-      <h2>Serviços Adicionados</h2>
+      <h2>Serviços Disponíveis</h2>
       {services.length > 0 ? (
         <ul className="services-list">
           {services.map((service, index) => (
             <li key={index} className="service-box">
-              <strong>Serviço:</strong> {service.name} - 
-              <strong>R$ {service.rate} por hora
-              </strong> {service.userEmail && <span> Adicionado por: {service.userEmail}</span>}
+              <strong>{service.name}</strong> - R$ {service.rate} por hora
+              {service.userEmail && <span> (Adicionado por: {service.userEmail})</span>}
             </li>
           ))}
         </ul>
@@ -41,26 +41,62 @@ function ServicesContainer({ services }) {
   );
 }
 
-// Componente principal Home
 function Home({ services, userEmail }) {
   const [isLoading, setIsLoading] = useState(true);
 
-  // Simulação do carregamento dos dados
   useEffect(() => {
     const loadData = () => {
       setTimeout(() => {
-        setIsLoading(false); // Simulando o término do carregamento
-      }, 2000); // Simulação de 2 segundos de carregamento
+        setIsLoading(false);
+      }, 2000);
     };
     loadData();
   }, []);
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+  };
+
   return (
-    <div>
+    <div className="home">
       {isLoading ? (
         <LoadingSpinner />
       ) : (
         <>
+          {/* Carrossel Animado */}
+          <Slider {...settings} className="banner-carousel">
+            <div className="banner-slide">
+              <img src="banner1.jpg" alt="Banner 1" />
+              <div className="banner-text">
+                <h1>Bem-vindo ao My App</h1>
+                <p>Encontre os melhores serviços para seu pet!</p>
+                <a href="/cadastro" className="btn">Cadastre-se Agora</a>
+              </div>
+            </div>
+            <div className="banner-slide">
+              <img src="banner2.jpg" alt="Banner 2" />
+              <div className="banner-text">
+                <h1>Serviços de alta qualidade</h1>
+                <p>Encontre profissionais qualificados para seu pet!</p>
+                <a href="/cadastro" className="btn">Comece Agora</a>
+              </div>
+            </div>
+            <div className="banner-slide">
+              <img src="banner3.jpg" alt="Banner 3" />
+              <div className="banner-text">
+                <h1>Ganhe renda extra</h1>
+                <p>Adicione seus serviços e conquiste clientes!</p>
+                <a href="/cadastro" className="btn">Cadastre-se Hoje</a>
+              </div>
+            </div>
+          </Slider>
+
           <WelcomeContainer userEmail={userEmail} />
           <ServicesContainer services={services} />
         </>
