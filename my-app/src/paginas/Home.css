@@ -128,3 +128,11 @@
 .welcome-container {
   margin-top: 20px;
 }
+
+/* Adicione este código no seu arquivo CSS */
+.service-photo {
+  width: 100px; /* Largura padrão */
+  height: 100px; /* Altura padrão */
+  object-fit: cover; /* Ajusta a imagem para cobrir o contêiner sem distorcer */
+  border-radius: 8px; /* Adiciona bordas arredondadas (opcional) */
+}

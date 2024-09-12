@@ -29,7 +29,18 @@ function ServicesContainer({ services }) {
         <ul className="services-list">
           {services.map((service, index) => (
             <li key={index} className="service-box">
-              <strong>{service.name}</strong> - R$ {service.rate} por hora
+              <strong>ID: {service.id}</strong>
+              <strong>SERVIÇO: {service.name}</strong>
+              <strong>HORA COBRADA: R$ {service.rate} por hora</strong>
+              <strong>DESCRIÇÃO SERVIÇO: {service.description}</strong>
+              <strong>LOCAL: {service.location}</strong>
+              {service.photo && (
+                <img
+                  src={`data:image/jpeg;base64,${service.photo}`}
+                  alt={service.name}
+                  className="service-photo"
+                />
+              )}
               {service.userEmail && <span> (Adicionado por: {service.userEmail})</span>}
             </li>
           ))}
@@ -40,6 +51,8 @@ function ServicesContainer({ services }) {
     </div>
   );
 }
+
+
 
 function Home({ services, userEmail }) {
   const [isLoading, setIsLoading] = useState(true);
