@@ -16,6 +16,7 @@ function App() {
   const [userEmail, setUserEmail] = useState('');
   const [services, setServices] = useState([]);
   const [showAddService, setShowAddService] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false); // Estado do tema
 
   useEffect(() => {
     // Fetch services from backend on component mount
@@ -48,9 +49,14 @@ function App() {
     setShowAddService(false);
   };
 
+  // Função para alternar entre temas claro e escuro
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
   return (
     <Router>
-      <div className="app">
+      <div className={`app ${isDarkMode ? 'dark-theme' : ''}`}>
         <header className="header">
           <div className="logo">
             <img src="logo.png" alt="My App" />
@@ -61,7 +67,6 @@ function App() {
             <Link to="/offers">Ofertas</Link>
             <Link to="/contact">Contato</Link>
             <Link to="/cadastro">Cadastro</Link>
-
             {isAuthenticated ? (
               <>
                 <span className="user-email">{userEmail}</span>
@@ -71,6 +76,10 @@ function App() {
             ) : (
               <Link to="/login">Login</Link>
             )}
+            {/* Botão para alternar o tema */}
+            <button onClick={toggleTheme}>
+              {isDarkMode ? 'Modo Claro' : 'Modo Escuro'}
+            </button>
           </nav>
         </header>
 

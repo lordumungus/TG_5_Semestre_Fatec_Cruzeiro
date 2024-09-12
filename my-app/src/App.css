@@ -1,89 +1,124 @@
-/* Cabeçalho */
+/* Estilos globais */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: var(--bg-color, #f0f0f0);
+  color: var(--text-color, #000000);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .header {
-  background-color: #ffffff; 
+  background-color: var(--header-bg-color, #ffffff);
   padding: 30px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 3px double #7728ff;
-  flex-wrap: wrap; 
-  position: sticky; 
-  top: 0; 
-  z-index: 1000; 
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .nav {
   display: flex;
   align-items: center;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
 }
 
 .nav a {
   margin: 0 15px;
-  color: #000000; 
+  color: var(--text-color, #000000);
   text-decoration: none;
   font-size: larger;
-  white-space: nowrap; 
+  white-space: nowrap;
+  transition: color 0.3s;
 }
 
 .nav a:hover {
   text-decoration: underline;
-  color: #7728ff;
+  color: var(--link-hover-color, #7728ff);
 }
 
-/* Botões */
-button, .btn {
+.btn, button {
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
-}
-
-button:hover, .btn:hover {
-  opacity: 0.9;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s;
 }
 
 .btn {
-  background-color: #007bff; 
+  background-color: var(--button-bg-color, #007bff);
   color: white;
 }
 
 button.btn-login {
-  background-color: #7728ff; 
+  background-color: var(--login-button-bg-color, #7728ff);
   color: #fff;
+}
+
+button:hover, .btn:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+button {
+  background-color: var(--button-bg-color, #007bff);
+  color: white;
+}
+
+/* Botão para alternar o tema */
+.toggle-theme-btn {
+  background-color: var(--button-bg-color, #007bff);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.toggle-theme-btn:hover {
+  background-color: var(--link-hover-color, #ffcc00);
+}
+
+/* Estilos para o tema escuro */
+.dark-theme {
+  --bg-color: #1e1e1e;
+  --text-color: #ffffff;
+  --header-bg-color: #333;
+  --footer-bg-color: #222;
+  --link-hover-color: #ffcc00;
+  --button-bg-color: #555;
+  --login-button-bg-color: #7748ff;
+  --service-box-bg-color: #444;
 }
 
 /* Fundo cinza claro para o corpo do site */
 .main {
   flex: 1;
-  background-color: #f0f0f0;
+  background-color: var(--bg-color, #f0f0f0);
   padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: background-color 0.3s;
 }
 
 /* Rodapé */
 .footer {
-  background-color: #333; 
-  color: #fff;
+  background-color: var(--footer-bg-color, #333);
+  color: var(--text-color, #ffffff);
   text-align: center;
   padding: 10px;
-}
-
-.footer-links {
-  margin-top: 10px;
-}
-
-.footer-links a {
-  color: #fff;
-  margin: 0 10px;
-  text-decoration: none;
-}
-
-.footer-links a:hover {
-  text-decoration: underline;
 }
 
 /* Carrossel */
@@ -106,6 +141,7 @@ button.btn-login {
   background-color: rgba(0, 0, 0, 0.5);
   padding: 20px;
   border-radius: 10px;
+  color: white; /* Texto em branco */
 }
 
 .banner-text h1 {
@@ -119,7 +155,7 @@ button.btn-login {
 /* Spinner de carregamento */
 .spinner {
   border: 8px solid #f3f3f3;
-  border-top: 8px solid #3498db; 
+  border-top: 8px solid #3498db;
   border-radius: 50%;
   width: 60px;
   height: 60px;
@@ -129,4 +165,61 @@ button.btn-login {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* Estilos do Carregamento */
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+/* Estilos da lista de serviços */
+.services-container {
+  display: grid;
+  gap: 80px;
+  margin-top: 30px;
+  padding: 20px;
+  justify-content: center;
+}
+
+.services-list {
+  list-style: none;
+  padding: 0;
+}
+
+.service-box {
+  background-color: var(--service-box-bg-color, #ffffff);
+  width: 15cm;
+  height: 6cm;
+  padding: 5px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, border-top 0.3s, color 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.service-box:hover {
+  transform: scale(1.1);
+  border-top: 3px solid #7728ff;
+  color: #7728ff;
+}
+
+.service-box h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.service-box p {
+  font-size: 16px;
+}
+
+/* Container de boas-vindas */
+.welcome-container {
+  margin-top: 20px;
 }
