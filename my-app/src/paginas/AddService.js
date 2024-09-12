@@ -5,42 +5,49 @@ function AddService({ onAddService, userEmail }) {
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [serviceName, setServiceName] = useState('');
   const [hourlyRate, setHourlyRate] = useState('');
-  const [isLoading, setIsLoading] = useState(false); // Estado de carregamento
+  const [description, setDescription] = useState('');
+  const [location, setLocation] = useState('');
+  const [photo, setPhoto] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const closeModal = () => {
     setIsModalOpen(false);
     setServiceName('');
     setHourlyRate('');
+    setDescription('');
+    setLocation('');
+    setPhoto(null);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (serviceName.trim() && hourlyRate.trim()) {
-      setIsLoading(true); // Iniciar o carregamento
+    if (serviceName.trim() && hourlyRate.trim() && description.trim() && location.trim()) {
+      setIsLoading(true);
+      const formData = new FormData();
+      formData.append('name', serviceName);
+      formData.append('rate', hourlyRate);
+      formData.append('description', description);
+      formData.append('location', location);
+      formData.append('photo', photo);
+      formData.append('userEmail', userEmail);
+
       fetch('http://localhost:5000/add-service', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: serviceName,
-          rate: hourlyRate,
-          userEmail: userEmail,
-        }),
+        body: formData,
       })
       .then((response) => response.json())
       .then((data) => {
-        setIsLoading(false); // Parar o carregamento
+        setIsLoading(false);
         if (data.message) {
           alert(data.message);
-          onAddService({ name: serviceName, rate: hourlyRate, userEmail: userEmail });
+          onAddService({ name: serviceName, rate: hourlyRate, description, location, userEmail });
           closeModal();
         } else if (data.error) {
           alert(data.error);
         }
       })
       .catch((error) => {
-        setIsLoading(false); // Parar o carregamento em caso de erro
+        setIsLoading(false);
         console.error('Erro ao adicionar serviço:', error);
       });
     } else {
@@ -84,8 +91,38 @@ function AddService({ onAddService, userEmail }) {
                     required
                   />
                 </div>
-                <button type="submit">Adicionar</button>
-                <button type="button" onClick={closeModal}>Cancelar</button>
+                <div className="form-group">
+                  <label htmlFor="description">Descrição:</label>
+                  <textarea
+                    id="description"
+                    name="description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="location">Local:</label>
+                  <input
+                    type="text"
+                    id="location"
+                    name="location"
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="photo">Foto do Serviço:</label>
+                  <input
+                    type="file"
+                    id="photo"
+                    name="photo"
+                    accept="image/*"
+                    onChange={(e) => setPhoto(e.target.files[0])}
+                  />
+                </div>
+                <button type="submit">Adicionar Serviço</button>
               </form>
             )}
           </div>

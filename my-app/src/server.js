@@ -2,6 +2,7 @@ const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const multer = require('multer');
 
 const app = express();
 const port = 5000;
@@ -9,6 +10,10 @@ const port = 5000;
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
+
+// Configuração do multer para armazenar a imagem em memória
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 // Conectar ao banco de dados SQLite
 const db = new sqlite3.Database('./banco/database.db', (err) => {
@@ -33,6 +38,9 @@ const db = new sqlite3.Database('./banco/database.db', (err) => {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       rate INTEGER NOT NULL,
+      description TEXT,
+      location TEXT,
+      photo BLOB,
       userEmail TEXT NOT NULL
     )`, (err) => {
       if (err) {
@@ -47,9 +55,7 @@ const db = new sqlite3.Database('./banco/database.db', (err) => {
 app.post('/register', (req, res) => {
   const { email, password, nome, cpf, telefone, endereco } = req.body;
 
-  // Verifica se todos os campos estão presentes
   if (email && password && nome && cpf && telefone && endereco) {
-    // Primeiro, verifica se o email já existe no banco de dados
     db.get('SELECT * FROM users WHERE email = ?', [email], (err, row) => {
       if (err) {
         console.error('Erro ao verificar email:', err.message);
@@ -57,11 +63,9 @@ app.post('/register', (req, res) => {
       }
 
       if (row) {
-        // Se o email já existe, retorna erro
         return res.status(400).json({ error: 'Email já cadastrado' });
       }
 
-      // Se o email não existe, insere o novo usuário no banco de dados
       db.run(
         'INSERT INTO users (email, password, nome, cpf, telefone, endereco) VALUES (?, ?, ?, ?, ?, ?)',
         [email, password, nome, cpf, telefone, endereco],
@@ -79,8 +83,6 @@ app.post('/register', (req, res) => {
     res.status(400).json({ error: 'Dados incompletos' });
   }
 });
-
-
 
 // Rota para login de usuário
 app.post('/login', (req, res) => {
@@ -103,17 +105,23 @@ app.post('/login', (req, res) => {
 });
 
 // Rota para adicionar serviço
-app.post('/add-service', (req, res) => {
-  const { name, rate, userEmail } = req.body;
-  if (name && rate && userEmail) {
-    db.run('INSERT INTO services (name, rate, userEmail) VALUES (?, ?, ?)', [name, rate, userEmail], (err) => {
-      if (err) {
-        console.error('Erro ao adicionar serviço:', err.message);
-        res.status(500).json({ error: 'Erro ao adicionar serviço' });
-      } else {
-        res.status(201).json({ message: 'Serviço adicionado com sucesso!' });
+app.post('/add-service', upload.single('photo'), (req, res) => {
+  const { name, rate, description, location, userEmail } = req.body;
+  const photo = req.file ? req.file.buffer : null;
+
+  if (name && rate && description && location && userEmail) {
+    db.run(
+      'INSERT INTO services (name, rate, description, location, photo, userEmail) VALUES (?, ?, ?, ?, ?, ?)',
+      [name, rate, description, location, photo, userEmail],
+      (err) => {
+        if (err) {
+          console.error('Erro ao adicionar serviço:', err.message);
+          res.status(500).json({ error: 'Erro ao adicionar serviço' });
+        } else {
+          res.status(201).json({ message: 'Serviço adicionado com sucesso!' });
+        }
       }
-    });
+    );
   } else {
     res.status(400).json({ error: 'Dados incompletos' });
   }
@@ -126,7 +134,11 @@ app.get('/api/services', (req, res) => {
       console.error('Erro ao buscar serviços:', err.message);
       res.status(500).json({ error: 'Erro ao buscar serviços' });
     } else {
-      res.json(rows);
+      const servicesWithImage = rows.map(row => ({
+        ...row,
+        photo: row.photo ? Buffer.from(row.photo).toString('base64') : null
+      }));
+      res.json(servicesWithImage);
     }
   });
 });
