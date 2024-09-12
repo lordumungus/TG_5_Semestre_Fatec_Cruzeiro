@@ -14,27 +14,30 @@ body {
 
 /* Cabeçalho */
 .header {
-  background-color: #ffca28; /* Laranja para o cabeçalho */
-  padding: 10px 20px;
+  background-color: #ffffff; /* Laranja para o cabeçalho */
+  padding: 30px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 3px double #7728ff;
 }
 
 .logo {
   font-size: 24px;
   font-weight: bold;
-  color: white; /* Branco para o texto do logo */
+  color: rgb(0, 0, 0); /* Branco para o texto do logo */
 }
 
 .nav a {
   margin: 0 15px;
-  color: #fff; /* Links em branco no cabeçalho */
+  color: #000000; /* Links em branco no cabeçalho */
   text-decoration: none;
+  font-size: larger;
 }
 
 .nav a:hover {
   text-decoration: underline;
+  color: #7728ff;
 }
 
 /* Botões */
@@ -56,7 +59,7 @@ button:hover, .btn:hover {
 }
 
 button.btn-login {
-  background-color: #ffca28; /* Botão de login em laranja */
+  background-color: #7728ff; /* Botão de login em laranja */
   color: #fff;
 }
 

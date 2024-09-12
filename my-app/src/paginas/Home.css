@@ -65,16 +65,18 @@
   }
   
   .btn {
-    background-color: #ffca28;
-    color: white;
+    background-color: #e9d7d7;;
+    color: rgb(0, 0, 0);
     padding: 10px 20px;
     border-radius: 5px;
     text-decoration: none;
     font-size: 18px;
+    border-radius: 1%;
   }
   
   .btn:hover {
-    background-color: #ff9800;
+    background-color: #ffffff;
+    border-radius:2% #7728ff;
   }
   
   /* Estilos da lista de serviços */
@@ -88,7 +90,7 @@
   }
   
   .service-box {
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     padding: 20px;
     margin: 10px 0;
     border-radius: 8px;
