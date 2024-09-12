@@ -72,7 +72,7 @@ function Home({ services, userEmail }) {
           {/* Carrossel Animado */}
           <Slider {...settings} className="banner-carousel">
             <div className="banner-slide">
-              <img src="banner1.jpg" alt="Banner 1" />
+              <img src="/f2.jpeg" alt="Banner 1" />
               <div className="banner-text">
                 <h1>Bem-vindo ao My App</h1>
                 <p>Encontre os melhores serviços para seu pet!</p>
@@ -80,7 +80,7 @@ function Home({ services, userEmail }) {
               </div>
             </div>
             <div className="banner-slide">
-              <img src="banner2.jpg" alt="Banner 2" />
+              <img src="/f3.jpg" alt="Banner 2" />
               <div className="banner-text">
                 <h1>Serviços de alta qualidade</h1>
                 <p>Encontre profissionais qualificados para seu pet!</p>
@@ -88,7 +88,7 @@ function Home({ services, userEmail }) {
               </div>
             </div>
             <div className="banner-slide">
-              <img src="banner3.jpg" alt="Banner 3" />
+              <img src="/f4.jpg" alt="Banner 3" />
               <div className="banner-text">
                 <h1>Ganhe renda extra</h1>
                 <p>Adicione seus serviços e conquiste clientes!</p>
