@@ -1,38 +1,29 @@
-/* Estilo global */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0; /* Fundo cinza claro */
-  color: #333; /* Texto padrão escuro */
-}
-
-/* Configurações gerais do app */
-.app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
 /* Cabeçalho */
 .header {
-  background-color: #ffffff; /* Laranja para o cabeçalho */
+  background-color: #ffffff; 
   padding: 30px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 3px double #7728ff;
+  flex-wrap: wrap; 
+  position: sticky; 
+  top: 0; 
+  z-index: 1000; 
 }
 
-.logo {
-  font-size: 24px;
-  font-weight: bold;
-  color: rgb(0, 0, 0); /* Branco para o texto do logo */
+.nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; 
 }
 
 .nav a {
   margin: 0 15px;
-  color: #000000; /* Links em branco no cabeçalho */
+  color: #000000; 
   text-decoration: none;
   font-size: larger;
+  white-space: nowrap; 
 }
 
 .nav a:hover {
@@ -54,12 +45,12 @@ button:hover, .btn:hover {
 }
 
 .btn {
-  background-color: #007bff; /* Azul padrão */
+  background-color: #007bff; 
   color: white;
 }
 
 button.btn-login {
-  background-color: #7728ff; /* Botão de login em laranja */
+  background-color: #7728ff; 
   color: #fff;
 }
 
@@ -75,7 +66,7 @@ button.btn-login {
 
 /* Rodapé */
 .footer {
-  background-color: #333; /* Rodapé em cinza escuro */
+  background-color: #333; 
   color: #fff;
   text-align: center;
   padding: 10px;
@@ -128,7 +119,7 @@ button.btn-login {
 /* Spinner de carregamento */
 .spinner {
   border: 8px solid #f3f3f3;
-  border-top: 8px solid #3498db; /* Azul para o spinner de carregamento */
+  border-top: 8px solid #3498db; 
   border-radius: 50%;
   width: 60px;
   height: 60px;

@@ -1,103 +1,130 @@
 .home {
-    text-align: center;
-    padding: 20px;
-  }
-  
-  .loading-spinner {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 200px;
-  }
-  
-  .spinner {
-    border: 8px solid #f3f3f3;
-    border-top: 8px solid #3498db;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spin 1s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  
-  /* Banner Carousel */
-  .banner-carousel {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    position: relative;
-  }
-  
-  .banner-slide {
-    position: relative;
-    color: white;
-  }
-  
-  .banner-slide img {
-    width: 100%;
-    height: 400px;
-    object-fit: cover;
-  }
-  
-  .banner-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 20px;
-    border-radius: 10px;
-  }
-  
-  .banner-text h1 {
-    font-size: 36px;
-    margin-bottom: 10px;
-  }
-  
-  .banner-text p {
-    font-size: 18px;
-    margin-bottom: 20px;
-  }
-  
-  .btn {
-    background-color: #e9d7d7;;
-    color: rgb(0, 0, 0);
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 18px;
-    border-radius: 1%;
-  }
-  
-  .btn:hover {
-    background-color: #ffffff;
-    border-radius:2% #7728ff;
-  }
-  
-  /* Estilos da lista de serviços */
-  .services-container {
-    margin-top: 30px;
-  }
-  
-  .services-list {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .service-box {
-    background-color: rgb(255, 255, 255);
-    padding: 20px;
-    margin: 10px 0;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .welcome-container {
-    margin-top: 20px;
-  }
-  
+  text-align: center;
+  padding: 20px;
+}
+
+/* Estilos do Carregamento */
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.spinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Banner Carousel */
+.banner-carousel {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.banner-slide {
+  position: relative;
+  color: white;
+}
+
+.banner-slide img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+.banner-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+  color: white; /* Texto em branco */
+}
+
+.banner-text h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.banner-text p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.btn {
+  background-color: #e9d7d7;
+  color: rgb(0, 0, 0);
+  padding: 10px 20px;
+  border-radius: 1%;
+  text-decoration: none;
+  font-size: 18px;
+  transition: background-color 0.3s, border-radius 0.3s;
+}
+
+.btn:hover {
+  background-color: #ffffff;
+  border-radius: 2%;
+  border: 2px solid #7728ff;
+}
+
+/* Estilos da lista de serviços */
+.services-container {
+  display: grid;
+  gap: 80px; 
+  margin-top: 30px;
+  padding: 20px;
+  justify-content: center; 
+}
+
+.services-list {
+  list-style: none;
+  padding: 0;
+}
+
+.service-box {
+  background-color: rgb(255, 255, 255);
+  width: 15cm;  
+  height: 6cm; 
+  padding: 5px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, border-top 0.3s, color 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.service-box:hover
+{
+  transform: scale(1.1); 
+  border-top: 3px solid #7728ff;
+  color: #7728ff;
+} 
+.service-box h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.service-box p {
+  font-size: 16px;
+}
+/* Container de boas-vindas */
+.welcome-container {
+  margin-top: 20px;
+}
