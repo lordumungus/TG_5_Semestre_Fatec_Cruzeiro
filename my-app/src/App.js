@@ -18,7 +18,14 @@ function App() {
   const [showAddService, setShowAddService] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false); // Estado do tema
 
+  // Recuperar o estado de autenticação e o email do usuário ao carregar o componente
   useEffect(() => {
+    const storedEmail = localStorage.getItem('userEmail');
+    if (storedEmail) {
+      setIsAuthenticated(true);
+      setUserEmail(storedEmail);
+    }
+
     // Fetch services from backend on component mount
     axios.get('http://localhost:5000/api/services')
       .then(response => {
@@ -32,11 +39,13 @@ function App() {
   const handleLogin = (email) => {
     setIsAuthenticated(true);
     setUserEmail(email);
+    localStorage.setItem('userEmail', email); // Salva o email no localStorage
   };
 
   const handleLogout = () => {
     setIsAuthenticated(false);
     setUserEmail('');
+    localStorage.removeItem('userEmail'); // Remove o email do localStorage
   };
 
   const handleRegister = (email, password) => {

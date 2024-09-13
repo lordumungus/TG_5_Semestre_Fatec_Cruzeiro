@@ -41,6 +41,7 @@ function ServicesContainer({ services }) {
                   className="service-photo"
                 />
               )}
+              <strong>{service.userEmail}</strong>
               {service.userEmail && <span> (Adicionado por: {service.userEmail})</span>}
             </li>
           ))}

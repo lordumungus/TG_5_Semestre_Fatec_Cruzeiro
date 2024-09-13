@@ -123,6 +123,7 @@ function AddService({ onAddService, userEmail }) {
                   />
                 </div>
                 <button type="submit">Adicionar Serviço</button>
+                <button type="button" className="close-btn" onClick={closeModal}>Fechar</button>
               </form>
             )}
           </div>
