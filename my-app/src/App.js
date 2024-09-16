@@ -77,7 +77,7 @@ function App() {
               <>
                 <span className="user-email">{userEmail}</span>
                 <Link to="/" onClick={handleLogout}>Logout</Link>
-                <button onClick={() => setShowAddService(true)}>Adicionar Serviço</button>
+                <Link onClick={() => setShowAddService(true)}>Adicionar Serviço</Link>
               </>
             ) : (
               <Link to="/login">Login</Link>

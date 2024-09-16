@@ -46,33 +46,24 @@ body {
   color: var(--link-hover-color, #7728ff);
 }
 
-.btn, button {
+button, .btn {
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s, transform 0.3s;
-}
-
-.btn {
   background-color: var(--button-bg-color, #007bff);
   color: white;
 }
 
 button.btn-login {
   background-color: var(--login-button-bg-color, #7728ff);
-  color: #fff;
 }
 
 button:hover, .btn:hover {
   opacity: 0.9;
   transform: scale(1.05);
-}
-
-button {
-  background-color: var(--button-bg-color, #007bff);
-  color: white;
 }
 
 /* Botão para alternar o tema */
@@ -141,7 +132,7 @@ button {
   background-color: rgba(0, 0, 0, 0.5);
   padding: 20px;
   border-radius: 10px;
-  color: white; /* Texto em branco */
+  color: white;
 }
 
 .banner-text h1 {
