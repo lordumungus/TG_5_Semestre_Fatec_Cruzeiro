@@ -57,7 +57,7 @@
 }
 
 .banner-text h1 {
-  font-size: 36px;
+  font-size: 30px;
   margin-bottom: 10px;
 }
 
@@ -136,3 +136,15 @@
   object-fit: cover; /* Ajusta a imagem para cobrir o contêiner sem distorcer */
   border-radius: 8px; /* Adiciona bordas arredondadas (opcional) */
 }
+
+.services-list {
+  max-height: 500px; /* Ajuste a altura conforme necessário */
+  overflow-y: scroll;
+  scrollbar-width: none; /* Para Firefox */
+  -ms-overflow-style: none; /* Para Internet Explorer e Edge */
+}
+
+.services-list::-webkit-scrollbar {
+  display: none; /* Para Chrome, Safari e Opera */
+}
+

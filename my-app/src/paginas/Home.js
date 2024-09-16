@@ -30,11 +30,9 @@ function ServicesContainer({ services }) {
         <ul className="services-list">
           {services.map((service, index) => (
             <li key={index} className="service-box">
-              <Link to={`/service/${service.id}`}>
-                <strong>ID: {service.id}</strong>
-                <strong>SERVIÇO: {service.name}</strong>
-                <strong>HORA COBRADA: R$ {service.rate} por hora</strong>
-                <strong>DESCRIÇÃO SERVIÇO: {service.description}</strong>
+              <Link to={`/service/${service.id}`}>             
+                <strong><h1>SERVIÇO: {service.name}</h1></strong>                
+                <strong>HORA COBRADA: R$ {service.rate} por hora</strong>              
                 <strong>LOCAL: {service.location}</strong>
                 {service.photo && (
                   <img

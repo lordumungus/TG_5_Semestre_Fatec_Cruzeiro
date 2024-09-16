@@ -65,7 +65,7 @@ function App() {
       <div className={`app ${isDarkMode ? 'dark-theme' : ''}`}>
         <header className="header">
           <div className="logo">
-            <img src="logo.png" alt="My App" />
+            <img src="favicon.ico" alt="My App" />
           </div>
           <nav className="nav">
             <Link to="/">Home</Link>
