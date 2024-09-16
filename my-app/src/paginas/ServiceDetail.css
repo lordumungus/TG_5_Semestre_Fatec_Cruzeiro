@@ -1,26 +1,101 @@
 .service-detail {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+  }
+  
+  .service-container {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
   }
   
-  .service-box {
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    margin-top: 20px;
+  .service-image {
+    flex: 1;
+    min-width: 300px;
+    text-align: center;
   }
   
   .service-photo {
     max-width: 100%;
-    height: auto;
-    margin-top: 10px;
-    border-radius: 5px;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .service-info {
+    flex: 2;
+    margin-left: 20px;
+    padding: 20px;
   }
   
   h1 {
-    text-align: center;
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .service-price {
+    font-size: 24px;
+    color: #28a745;
+    font-weight: bold;
     margin-bottom: 20px;
+  }
+  
+  .service-description {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  .service-location,
+  .service-user {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 10px;
+  }
+  
+  .service-actions {
+    margin-top: 30px;
+  }
+  
+  .btn-contact,
+  .btn-buy {
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-contact:hover,
+  .btn-buy:hover {
+    background-color: #e68900;
+  }
+  
+  @media (max-width: 768px) {
+    .service-container {
+      flex-direction: column;
+    }
+  
+    .service-info {
+      margin-left: 0;
+      padding: 10px;
+    }
+  
+    .btn-contact,
+    .btn-buy {
+      width: 100%;
+      margin-bottom: 10px;
+    }
   }
   

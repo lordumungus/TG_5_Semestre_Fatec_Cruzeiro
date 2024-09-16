@@ -31,20 +31,37 @@ function ServiceDetail() {
 
   return (
     <div className="service-detail">
-      <h1>Detalhes do Serviço</h1>
-      <div className="service-box">
-        <strong>Nome: {service.name}</strong>
-        <strong>Descrição: {service.description}</strong>
-        <strong>Preço por hora: R$ {service.rate}</strong>
-        <strong>Local: {service.location}</strong>
-        {service.photo && (
-          <img
-            src={`data:image/jpeg;base64,${service.photo}`}
-            alt={service.name}
-            className="service-photo"
-          />
-        )}
-        <strong>Adicionado por: {service.userEmail}</strong>
+      <div className="service-container">
+        <div className="service-image">
+          {service.photo ? (
+            <img
+              src={`data:image/jpeg;base64,${service.photo}`}
+              alt={service.name}
+              className="service-photo"
+            />
+          ) : (
+            <img src="/assets/placeholder.jpg" alt="Placeholder" className="service-photo" />
+          )}
+        </div>
+
+        <div className="service-info">
+          <h1>{service.name}</h1>
+          <p className="service-price">R$ {service.rate} / hora</p>
+          <p className="service-description">{service.description}</p>
+
+          <div className="service-location">
+            <span>Localização: {service.location}</span>
+          </div>
+
+          <div className="service-user">
+            <span>Vendido por: {service.userEmail}</span>
+          </div>
+
+          <div className="service-actions">
+            <button className="btn-contact">Entrar em contato</button>
+            <button className="btn-buy">Comprar Serviço</button>
+          </div>
+        </div>
       </div>
     </div>
   );
