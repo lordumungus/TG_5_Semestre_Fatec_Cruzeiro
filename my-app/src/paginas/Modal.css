@@ -1,49 +1,113 @@
-/* Modal.css */
+/* Estilo geral do modal */
 .modal {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-  }
-  
-  .modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 4px;
-    width: 300px;
-    position: relative;
-  }
-  
-  .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    font-size: 20px;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .form-group input {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-  }
-  
-  button {
-    margin-right: 10px;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  padding: 20px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden; /* Garante que o conteúdo fique dentro do modal */
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Espaçamento entre os elementos */
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #999;
+}
+
+h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #333;
+  background-color: #f9f9f9;
+  transition: all 0.2s ease;
+  box-sizing: border-box; /* Garante que o padding seja considerado no tamanho total */
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #ffd400;
+  background-color: white;
+}
+
+textarea {
+  height: 100px;
+  resize: none;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  width: auto; /* Permite que o botão seja dimensionado automaticamente */
+  margin-top: 10px; /* Adiciona espaçamento superior aos botões */
+}
+
+button[type="submit"] {
+  background-color: #ffd400;
+  color: #333;
+  font-weight: bold;
+}
+
+button[type="submit"]:hover {
+  background-color: #ffbb00;
+}
+
+button.close-btn {
+  background-color: #ddd;
+  color: #333;
+  margin-top: 10px;
+}
+
+button.close-btn:hover {
+  background-color: #ccc;
+}
+
+/* Adiciona espaçamento entre os botões */
+button:not(:last-child) {
+  margin-bottom: 10px; /* Espaço entre os botões, exceto o último */
+}
