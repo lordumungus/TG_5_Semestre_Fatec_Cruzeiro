@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Slider from "react-slick";
 import './Home.css';
 import "slick-carousel/slick/slick.css";
@@ -29,20 +30,22 @@ function ServicesContainer({ services }) {
         <ul className="services-list">
           {services.map((service, index) => (
             <li key={index} className="service-box">
-              <strong>ID: {service.id}</strong>
-              <strong>SERVIÇO: {service.name}</strong>
-              <strong>HORA COBRADA: R$ {service.rate} por hora</strong>
-              <strong>DESCRIÇÃO SERVIÇO: {service.description}</strong>
-              <strong>LOCAL: {service.location}</strong>
-              {service.photo && (
-                <img
-                  src={`data:image/jpeg;base64,${service.photo}`}
-                  alt={service.name}
-                  className="service-photo"
-                />
-              )}
-              <strong>{service.userEmail}</strong>
-              {service.userEmail && <span> (Adicionado por: {service.userEmail})</span>}
+              <Link to={`/service/${service.id}`}>
+                <strong>ID: {service.id}</strong>
+                <strong>SERVIÇO: {service.name}</strong>
+                <strong>HORA COBRADA: R$ {service.rate} por hora</strong>
+                <strong>DESCRIÇÃO SERVIÇO: {service.description}</strong>
+                <strong>LOCAL: {service.location}</strong>
+                {service.photo && (
+                  <img
+                    src={`data:image/jpeg;base64,${service.photo}`}
+                    alt={service.name}
+                    className="service-photo"
+                  />
+                )}
+                <strong>{service.userEmail}</strong>
+                {service.userEmail && <span> (Adicionado por: {service.userEmail})</span>}
+              </Link>
             </li>
           ))}
         </ul>
@@ -53,8 +56,6 @@ function ServicesContainer({ services }) {
   );
 }
 
-
-
 function Home({ services, userEmail }) {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -62,7 +63,7 @@ function Home({ services, userEmail }) {
     const loadData = () => {
       setTimeout(() => {
         setIsLoading(false);
-      }, 2000);
+      }, 2000); // Simula o carregamento com um delay de 2 segundos
     };
     loadData();
   }, []);
@@ -85,16 +86,16 @@ function Home({ services, userEmail }) {
         <>
           {/* Carrossel Animado */}
           <Slider {...settings} className="banner-carousel">
-  <div className="banner-slide">
-    <img src="/assets/f2.jpeg" alt="Banner 1" />
-  </div>
-  <div className="banner-slide">
-    <img src="/assets/f3.jpg" alt="Banner 2" />
-  </div>
-  <div className="banner-slide">
-    <img src="/assets/f4.jpg" alt="Banner 3" />
-  </div>
-</Slider>
+            <div className="banner-slide">
+              <img src="/assets/f2.jpeg" alt="Banner 1" />
+            </div>
+            <div className="banner-slide">
+              <img src="/assets/f3.jpg" alt="Banner 2" />
+            </div>
+            <div className="banner-slide">
+              <img src="/assets/f4.jpg" alt="Banner 3" />
+            </div>
+          </Slider>
 
           <WelcomeContainer userEmail={userEmail} />
           <ServicesContainer services={services} />

@@ -9,6 +9,7 @@ import AddService from './paginas/AddService';
 import Login from './paginas/Login';
 import Cadastro from './paginas/Cadastro';
 import Rodape from './paginas/Rodape';
+import ServiceDetail from './paginas/ServiceDetail'; // Importe o componente ServiceDetail
 import axios from 'axios';
 
 function App() {
@@ -16,9 +17,8 @@ function App() {
   const [userEmail, setUserEmail] = useState('');
   const [services, setServices] = useState([]);
   const [showAddService, setShowAddService] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false); // Estado do tema
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
-  // Recuperar o estado de autenticação e o email do usuário ao carregar o componente
   useEffect(() => {
     const storedEmail = localStorage.getItem('userEmail');
     if (storedEmail) {
@@ -26,7 +26,6 @@ function App() {
       setUserEmail(storedEmail);
     }
 
-    // Fetch services from backend on component mount
     axios.get('http://localhost:5000/api/services')
       .then(response => {
         setServices(response.data);
@@ -39,18 +38,17 @@ function App() {
   const handleLogin = (email) => {
     setIsAuthenticated(true);
     setUserEmail(email);
-    localStorage.setItem('userEmail', email); // Salva o email no localStorage
+    localStorage.setItem('userEmail', email);
   };
 
   const handleLogout = () => {
     setIsAuthenticated(false);
     setUserEmail('');
-    localStorage.removeItem('userEmail'); // Remove o email do localStorage
+    localStorage.removeItem('userEmail');
   };
 
   const handleRegister = (email, password) => {
     console.log("Usuário cadastrado:", email);
-    // Lógica para cadastrar usuários
   };
 
   const handleAddService = (newService) => {
@@ -58,7 +56,6 @@ function App() {
     setShowAddService(false);
   };
 
-  // Função para alternar entre temas claro e escuro
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
   };
@@ -85,7 +82,6 @@ function App() {
             ) : (
               <Link to="/login">Login</Link>
             )}
-            {/* Botão para alternar o tema */}
             <button onClick={toggleTheme}>
               {isDarkMode ? 'Modo Claro' : 'Modo Escuro'}
             </button>
@@ -100,6 +96,7 @@ function App() {
             <Route path="/contact" element={<Contato />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
             <Route path="/cadastro" element={<Cadastro onRegister={handleRegister} />} />
+            <Route path="/service/:id" element={<ServiceDetail />} /> {/* Nova rota para os detalhes */}
           </Routes>
           {showAddService && <AddService onAddService={handleAddService} userEmail={userEmail} />}
         </main>

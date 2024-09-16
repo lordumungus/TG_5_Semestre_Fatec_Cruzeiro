@@ -25,7 +25,11 @@ const db = new sqlite3.Database('./banco/database.db', (err) => {
     db.run(`CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       email TEXT NOT NULL,
-      password TEXT NOT NULL
+      password TEXT NOT NULL,
+      nome TEXT,
+      cpf TEXT,
+      telefone TEXT,
+      endereco TEXT
     )`, (err) => {
       if (err) {
         console.error('Erro ao criar a tabela de usuários:', err.message);
@@ -52,6 +56,7 @@ const db = new sqlite3.Database('./banco/database.db', (err) => {
   }
 });
 
+// Rota para registrar novo usuário
 app.post('/register', (req, res) => {
   const { email, password, nome, cpf, telefone, endereco } = req.body;
 
@@ -147,3 +152,25 @@ app.get('/api/services', (req, res) => {
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
+
+// Rota para buscar detalhes de um serviço específico
+app.get('/api/service/:id', (req, res) => {
+  const serviceId = req.params.id;
+
+  db.get('SELECT * FROM services WHERE id = ?', [serviceId], (err, row) => {
+    if (err) {
+      console.error('Erro ao buscar serviço:', err.message);
+      res.status(500).json({ error: 'Erro ao buscar serviço' });
+    } else if (row) {
+      // Convertendo a imagem em base64 se ela existir
+      const serviceWithImage = {
+        ...row,
+        photo: row.photo ? Buffer.from(row.photo).toString('base64') : null
+      };
+      res.json(serviceWithImage);
+    } else {
+      res.status(404).json({ error: 'Serviço não encontrado' });
+    }
+  });
+});
+
