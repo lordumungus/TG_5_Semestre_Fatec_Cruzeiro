@@ -26,7 +26,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "install-deps": "npm install react-scripts react-bootstrap bootstrap axios react-router-dom web-vitals react-slick slick-carousel multer"
   },
   "eslintConfig": {
     "extends": [
