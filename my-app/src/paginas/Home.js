@@ -85,13 +85,13 @@ function Home({ services, userEmail }) {
           {/* Carrossel Animado */}
           <Slider {...settings} className="banner-carousel">
             <div className="banner-slide">
-              <img src="/assets/f2.jpeg" alt="Banner 1" />
+              <img src="/assets/f2.png" alt="Banner 1" />
             </div>
             <div className="banner-slide">
-              <img src="/assets/f3.jpg" alt="Banner 2" />
+              <img src="/assets/f3.png" alt="Banner 2" />
             </div>
             <div className="banner-slide">
-              <img src="/assets/f4.jpg" alt="Banner 3" />
+              <img src="/assets/f4.png" alt="Banner 3" />
             </div>
           </Slider>
 

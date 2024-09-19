@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { FaSun, FaMoon } from 'react-icons/fa';
 import './App.css';
 import Categories from './paginas/Categories';
 import Ofertas from './paginas/Ofertas';
@@ -9,7 +10,7 @@ import AddService from './paginas/AddService';
 import Login from './paginas/Login';
 import Cadastro from './paginas/Cadastro';
 import Rodape from './paginas/Rodape';
-import ServiceDetail from './paginas/ServiceDetail'; // Importe o componente ServiceDetail
+import ServiceDetail from './paginas/ServiceDetail';
 import axios from 'axios';
 
 function App() {
@@ -31,7 +32,7 @@ function App() {
         setServices(response.data);
       })
       .catch(error => {
-        console.error('There was an error fetching the services!', error);
+        console.error('Houve um erro ao buscar os serviços!', error);
       });
   }, []);
 
@@ -68,6 +69,9 @@ function App() {
             <img src="favicon.ico" alt="My App" />
           </div>
           <nav className="nav">
+            {isAuthenticated && (
+              <span className="user-email">{userEmail}</span>
+            )}
             <Link to="/">Home</Link>
             <Link to="/categories">Categorias</Link>
             <Link to="/offers">Ofertas</Link>
@@ -75,28 +79,27 @@ function App() {
             <Link to="/cadastro">Cadastro</Link>
             {isAuthenticated ? (
               <>
-                <span className="user-email">{userEmail}</span>
                 <Link to="/" onClick={handleLogout}>Logout</Link>
                 <Link onClick={() => setShowAddService(true)}>Adicionar Serviço</Link>
               </>
             ) : (
               <Link to="/login">Login</Link>
             )}
-            <button onClick={toggleTheme}>
-              {isDarkMode ? 'Modo Claro' : 'Modo Escuro'}
+            <button className="toggle-theme-btn" onClick={toggleTheme}>
+              {isDarkMode ? <FaSun /> : <FaMoon />}
             </button>
           </nav>
         </header>
 
         <main className="main">
           <Routes>
-            <Route path="/" element={<Home services={services} />} />
+            <Route path="/" element={<Home services={services} userEmail={userEmail} />} />
             <Route path="/categories" element={<Categories />} />
             <Route path="/offers" element={<Ofertas />} />
             <Route path="/contact" element={<Contato />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
             <Route path="/cadastro" element={<Cadastro onRegister={handleRegister} />} />
-            <Route path="/service/:id" element={<ServiceDetail />} /> {/* Nova rota para os detalhes */}
+            <Route path="/service/:id" element={<ServiceDetail />} />
           </Routes>
           {showAddService && <AddService onAddService={handleAddService} userEmail={userEmail} />}
         </main>

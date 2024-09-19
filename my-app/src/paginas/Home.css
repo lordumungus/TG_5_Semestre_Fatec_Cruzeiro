@@ -1,6 +1,9 @@
+/* Estilos da Home */
 .home {
   text-align: center;
   padding: 20px;
+  background-color: var(--bg-color); /* Usar cor de fundo do tema */
+  border-radius: 10px; /* Bordas arredondadas */
 }
 
 /* Estilos do Carregamento */
@@ -13,7 +16,7 @@
 
 .spinner {
   border: 8px solid #f3f3f3;
-  border-top: 8px solid #3498db;
+  border-top: 8px solid #7728ff; /* Cor do topo do spinner */
   border-radius: 50%;
   width: 60px;
   height: 60px;
@@ -28,9 +31,11 @@
 /* Banner Carousel */
 .banner-carousel {
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 1600px;
+  margin: 20px auto; /* Margem para o carrossel */
   position: relative;
+  border-radius: 10px; /* Bordas arredondadas */
+  overflow: hidden; /* Para garantir que as bordas arredondadas sejam respeitadas */
 }
 
 .banner-slide {
@@ -39,7 +44,7 @@
 }
 
 .banner-slide img {
-  width: 200%;
+  width: 100%; /* Ajuste para 100% */
   height: 400px;
   object-fit: cover;
 }
@@ -50,19 +55,19 @@
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6); /* Fundo mais escuro */
   padding: 20px;
   border-radius: 10px;
   color: white; /* Texto em branco */
 }
 
 .banner-text h1 {
-  font-size: 30px;
+  font-size: 28px; /* Tamanho da fonte ajustado */
   margin-bottom: 10px;
 }
 
 .banner-text p {
-  font-size: 18px;
+  font-size: 16px; /* Tamanho da fonte ajustado */
   margin-bottom: 20px;
 }
 
@@ -70,7 +75,7 @@
   background-color: #e9d7d7;
   color: rgb(0, 0, 0);
   padding: 10px 20px;
-  border-radius: 1%;
+  border-radius: 5px; /* Bordas mais arredondadas */
   text-decoration: none;
   font-size: 18px;
   transition: background-color 0.3s, border-radius 0.3s;
@@ -78,14 +83,14 @@
 
 .btn:hover {
   background-color: #ffffff;
-  border-radius: 2%;
-  border: 2px solid #7728ff;
+  border-radius: 8px; /* Bordas arredondadas ao passar o mouse */
+  border: 2px solid #7728ff; /* Cor do borda ao passar o mouse */
 }
 
 /* Estilos da lista de serviços */
 .services-container {
   display: grid;
-  gap: 80px; 
+  gap: 40px; /* Ajuste para um espaço mais harmônico */
   margin-top: 30px;
   padding: 20px;
   justify-content: center; 
@@ -97,12 +102,13 @@
 }
 
 .service-box {
-  background-color: rgb(255, 255, 255);
-  width: 15cm;  
-  height: 6cm; 
-  padding: 5px;
+  background-color: var(--service-box-bg-color, #ffffff);
+  width: 100%; /* Largura total */
+  max-width: 300px; /* Limitar a largura */
+  height: 200px; /* Ajuste de altura */
+  padding: 10px; /* Padding ajustado */
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra mais profunda */
   transition: transform 0.3s, border-top 0.3s, color 0.3s;
   display: flex;
   flex-direction: column;
@@ -110,33 +116,36 @@
   align-items: center;
   text-align: center;
 }
-.service-box:hover
-{
-  transform: scale(1.1); 
+
+.service-box:hover {
+  transform: scale(1.05); /* Escala um pouco menos */
   border-top: 3px solid #7728ff;
   color: #7728ff;
-} 
+}
+
 .service-box h2 {
-  font-size: 24px;
+  font-size: 22px; /* Tamanho da fonte ajustado */
   margin-bottom: 10px;
 }
 
 .service-box p {
-  font-size: 16px;
+  font-size: 14px; /* Tamanho da fonte ajustado */
 }
+
 /* Container de boas-vindas */
 .welcome-container {
   margin-top: 20px;
 }
 
-/* Adicione este código no seu arquivo CSS */
+/* Estilos da imagem de serviço */
 .service-photo {
-  width: 100px; /* Largura padrão */
-  height: 100px; /* Altura padrão */
+  width: 80px; /* Largura reduzida */
+  height: 80px; /* Altura reduzida */
   object-fit: cover; /* Ajusta a imagem para cobrir o contêiner sem distorcer */
-  border-radius: 8px; /* Adiciona bordas arredondadas (opcional) */
+  border-radius: 8px; /* Adiciona bordas arredondadas */
 }
 
+/* Scrollbar customizada */
 .services-list {
   max-height: 500px; /* Ajuste a altura conforme necessário */
   overflow-y: scroll;
@@ -147,4 +156,3 @@
 .services-list::-webkit-scrollbar {
   display: none; /* Para Chrome, Safari e Opera */
 }
-

@@ -15,6 +15,7 @@
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.4",
     "react-dom": "^18.3.1",
+    "react-icons": "^5.3.0",
     "react-router-dom": "^6.26.2",
     "react-scripts": "^5.0.1",
     "react-slick": "^0.30.2",
@@ -27,7 +28,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "install-deps": "npm install react-scripts react-bootstrap bootstrap axios react-router-dom web-vitals react-slick slick-carousel multer"
+    "install-deps": "npm install react-scripts react-bootstrap bootstrap axios react-router-dom web-vitals react-slick slick-carousel multer react-icons"
   },
   "eslintConfig": {
     "extends": [

@@ -2,7 +2,7 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: var(--bg-color, #f0f0f0);
+  background-color: var(--bg-color, #edd2a7);
   color: var(--text-color, #000000);
   transition: background-color 0.3s, color 0.3s;
 }
@@ -14,16 +14,17 @@ body {
 }
 
 .header {
-  background-color: var(--header-bg-color, #ffffff);
-  padding: 30px 20px;
+  background-color: var(--header-bg-color, #141414);
+  padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 3px double #7728ff;
+  border-bottom: 3px solid #f29334;
   flex-wrap: wrap;
   position: sticky;
   top: 0;
   z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
 }
 
 .nav {
@@ -33,184 +34,126 @@ body {
 }
 
 .nav a {
-  margin: 0 15px;
-  color: var(--text-color, #000000);
+  margin: 0 10px;
+  color: var(--text-color, #ffffff);
   text-decoration: none;
-  font-size: larger;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 14px; /* Tamanho da fonte reduzido */
   white-space: nowrap;
+
   transition: color 0.3s;
+  padding: 5px 10px; /* Espaçamento */
+  border-radius: 5px; /* Bordas arredondadas */
 }
 
 .nav a:hover {
   text-decoration: underline;
-  color: var(--link-hover-color, #7728ff);
+  color: #f29334;
+  background-color: rgba(119, 40, 255, 0.1); /* Fundo leve ao passar o mouse */
 }
 
-button, .btn {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s, transform 0.3s;
-  background-color: var(--button-bg-color, #007bff);
-  color: white;
+.user-email {
+  margin-right: 20px;
+  font-size: 14px; /* Tamanho da fonte reduzido */
+  color: #f29334; /* Cor do texto do email */
 }
 
-button.btn-login {
-  background-color: var(--login-button-bg-color, #7728ff);
-}
-
-button:hover, .btn:hover {
-  opacity: 0.9;
-  transform: scale(1.05);
-}
-
-/* Botão para alternar o tema */
 .toggle-theme-btn {
-  background-color: var(--button-bg-color, #007bff);
-  color: #fff;
-  padding: 8px 12px;
-  border-radius: 5px;
+  background: transparent;
   border: none;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
+  font-size: 20px; 
 }
 
-.toggle-theme-btn:hover {
-  background-color: var(--link-hover-color, #ffcc00);
+/* Estilos do tema claro */
+.light-theme {
+  --bg-color: #f0f0f0;
+  --text-color: #000;
+  --header-bg-color: #ffffff;
+  --link-hover-color: #7728ff;
+  --service-box-bg-color: #ffffff;
 }
 
-/* Estilos para o tema escuro */
+/* Estilos do tema escuro */
 .dark-theme {
   --bg-color: #1e1e1e;
   --text-color: #ffffff;
   --header-bg-color: #333;
-  --footer-bg-color: #222;
   --link-hover-color: #ffcc00;
-  --button-bg-color: #555;
+
+  --footer-bg-color: #222;
+    --button-bg-color: #555;
+  
   --login-button-bg-color: #7748ff;
+
   --service-box-bg-color: #444;
 }
 
-/* Fundo cinza claro para o corpo do site */
+/* Adicionando detalhes visuais */
 .main {
   flex: 1;
-  background-color: var(--bg-color, #f0f0f0);
+  background-color: var(--bg-color);
   padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
   transition: background-color 0.3s;
+  /* Para posicionar linhas e detalhes */
 }
+
+.main::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: #f29334; /* Linha roxa no topo */
+}
+
+.main::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: #7728ff; /* Linha roxa na parte inferior */
+}
+
 
 /* Rodapé */
 .footer {
   background-color: var(--footer-bg-color, #333);
   color: var(--text-color, #ffffff);
   text-align: center;
-  padding: 10px;
-}
-
-/* Carrossel */
-.banner-carousel .banner-slide {
-  color: white;
-}
-
-.banner-carousel .banner-slide img {
+  padding: 20px;
   width: 100%;
-  height: 400px;
-  object-fit: cover;
+  position: relative;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
 }
 
-.banner-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 20px;
-  border-radius: 10px;
-  color: white;
-}
-
-.banner-text h1 {
-  font-size: 36px;
-}
-
-.banner-text p {
-  font-size: 18px;
-}
-
-/* Spinner de carregamento */
-.spinner {
-  border: 8px solid #f3f3f3;
-  border-top: 8px solid #3498db;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Estilos do Carregamento */
-.loading-spinner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 200px;
-}
-
-/* Estilos da lista de serviços */
-.services-container {
-  display: grid;
-  gap: 80px;
-  margin-top: 30px;
-  padding: 20px;
-  justify-content: center;
-}
-
-.services-list {
-  list-style: none;
-  padding: 0;
-}
-
-.service-box {
-  background-color: var(--service-box-bg-color, #ffffff);
-  width: 15cm;
-  height: 6cm;
-  padding: 5px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s, border-top 0.3s, color 0.3s;
+.footer-content {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  text-align: center;
 }
 
-.service-box:hover {
-  transform: scale(1.1);
-  border-top: 3px solid #7728ff;
-  color: #7728ff;
+.footer-links {
+  margin-top: 10px;
 }
 
-.service-box h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
+.footer-links a {
+  color: #ffffff;
+  text-decoration: none;
+  margin: 0 10px;
+  transition: color 0.3s;
 }
 
-.service-box p {
-  font-size: 16px;
+.footer-links a:hover {
+  text-decoration: underline;
+  color: #7728ff; /* Cor do link ao passar o mouse */
 }
 
-/* Container de boas-vindas */
-.welcome-container {
-  margin-top: 20px;
-}
+/* Outros estilos como antes, mas com fontes reduzidas e cores ajustadas */
