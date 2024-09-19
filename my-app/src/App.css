@@ -2,7 +2,7 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: var(--bg-color, #edd2a7);
+  background-color: var(--bg-color, #ffefd6);
   color: var(--text-color, #000000);
   transition: background-color 0.3s, color 0.3s;
 }
@@ -49,7 +49,7 @@ body {
 .nav a:hover {
   text-decoration: underline;
   color: #f29334;
-  background-color: rgba(119, 40, 255, 0.1); /* Fundo leve ao passar o mouse */
+  background-color: rgba(255, 163, 14, 0.1); /* Fundo leve ao passar o mouse */
 }
 
 .user-email {
@@ -119,7 +119,7 @@ body {
   left: 0;
   width: 100%;
   height: 4px;
-  background-color: #7728ff; /* Linha roxa na parte inferior */
+  background-color: #f29334; /* Linha roxa na parte inferior */
 }
 
 
@@ -153,7 +153,23 @@ body {
 
 .footer-links a:hover {
   text-decoration: underline;
-  color: #7728ff; /* Cor do link ao passar o mouse */
+  color: #f29334; /* Cor do link ao passar o mouse */
 }
 
+.toggle-theme-btn{
+  color: #f29334;
+  font-size: small;
+}
+.toggle-theme-btn:hover{
+  color: #fd840a;
+  font-size: 14px;
+  text-decoration: underline;
+}
 /* Outros estilos como antes, mas com fontes reduzidas e cores ajustadas */
+
+
+
+
+
+
+
