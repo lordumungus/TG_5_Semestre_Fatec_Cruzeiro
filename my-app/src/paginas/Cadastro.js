@@ -7,8 +7,38 @@ function Cadastro({ onRegister }) {
   const [nome, setNome] = useState('');
   const [cpf, setCpf] = useState('');
   const [telefone, setTelefone] = useState('');
+  const [cep, setCep] = useState('');
   const [endereco, setEndereco] = useState('');
+  const [numeroCasa, setNumeroCasa] = useState(''); // Novo estado para o número da casa
   const [message, setMessage] = useState(''); // Estado para exibir mensagens de resposta
+
+  // Função para buscar o endereço pelo CEP
+  const buscarEnderecoPorCep = async (cep) => {
+    try {
+      const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+      const data = await response.json();
+      if (data.erro) {
+        setMessage('CEP não encontrado.');
+        setEndereco('');
+      } else {
+        setEndereco(`${data.logradouro}, ${data.bairro}, ${data.localidade} - ${data.uf}`);
+        setMessage('');
+      }
+    } catch (error) {
+      setMessage('Erro ao buscar endereço. Tente novamente.');
+    }
+  };
+
+  const handleCepChange = (e) => {
+    const novoCep = e.target.value;
+    setCep(novoCep);
+
+    if (novoCep.length === 8) {
+      buscarEnderecoPorCep(novoCep);
+    } else {
+      setEndereco('');
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,14 +50,14 @@ function Cadastro({ onRegister }) {
       return;
     }
 
-    if (email && password && nome && cpf && telefone && endereco) {
+    if (email && password && nome && cpf && telefone && cep && endereco && numeroCasa) {
       try {
         const response = await fetch('http://localhost:5000/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ email, password, nome, cpf, telefone, endereco }),
+          body: JSON.stringify({ email, password, nome, cpf, telefone, endereco, numeroCasa }),
         });
 
         const data = await response.json();
@@ -42,7 +72,9 @@ function Cadastro({ onRegister }) {
           setNome('');
           setCpf('');
           setTelefone('');
+          setCep('');
           setEndereco('');
+          setNumeroCasa(''); // Limpa o campo do número da casa
         } else {
           setMessage(`Erro: ${data.error}`); // Exibe a mensagem de erro retornada pela API
         }
@@ -89,12 +121,33 @@ function Cadastro({ onRegister }) {
           />
         </div>
         <div className="form-group">
+          <label>CEP:</label>
+          <input 
+            type="text" 
+            value={cep} 
+            onChange={handleCepChange} 
+            placeholder="Digite seu CEP" 
+            required 
+          />
+        </div>
+        <div className="form-group">
           <label>Endereço:</label>
           <input 
             type="text" 
             value={endereco} 
             onChange={(e) => setEndereco(e.target.value)} 
             placeholder="Digite seu endereço" 
+            required 
+            readOnly={true} // O endereço será preenchido automaticamente
+          />
+        </div>
+        <div className="form-group">
+          <label>Número da Casa:</label>
+          <input 
+            type="text" 
+            value={numeroCasa} 
+            onChange={(e) => setNumeroCasa(e.target.value)} 
+            placeholder="Digite o número da casa" 
             required 
           />
         </div>
