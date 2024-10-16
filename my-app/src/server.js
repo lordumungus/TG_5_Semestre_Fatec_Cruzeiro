@@ -58,9 +58,9 @@ const db = new sqlite3.Database('./banco/database.db', (err) => {
 
 // Rota para registrar novo usuário
 app.post('/register', (req, res) => {
-  const { email, password, nome, cpf, telefone, endereco } = req.body;
+  const { email, password, nome, cpf, telefone, endereco, numeroCasa } = req.body;
 
-  if (email && password && nome && cpf && telefone && endereco) {
+  if (email && password && nome && cpf && telefone && endereco && numeroCasa) {
     db.get('SELECT * FROM users WHERE email = ?', [email], (err, row) => {
       if (err) {
         console.error('Erro ao verificar email:', err.message);
@@ -72,8 +72,8 @@ app.post('/register', (req, res) => {
       }
 
       db.run(
-        'INSERT INTO users (email, password, nome, cpf, telefone, endereco) VALUES (?, ?, ?, ?, ?, ?)',
-        [email, password, nome, cpf, telefone, endereco],
+        'INSERT INTO users (email, password, nome, cpf, telefone, endereco, numeroCasa) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        [email, password, nome, cpf, telefone, endereco, numeroCasa],
         (err) => {
           if (err) {
             console.error('Erro ao registrar usuário:', err.message);
