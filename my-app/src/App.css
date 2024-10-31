@@ -70,7 +70,7 @@ body {
   --bg-color: #f0f0f0;
   --text-color: #000;
   --header-bg-color: #ffffff;
-  --link-hover-color: #7728ff;
+  --link-hover-color:  #f29334;
   --service-box-bg-color: #ffffff;
 }
 
@@ -84,7 +84,7 @@ body {
   --footer-bg-color: #222;
     --button-bg-color: #555;
   
-  --login-button-bg-color: #7748ff;
+  --login-button-bg-color: #f29334;
 
   --service-box-bg-color: #444;
 }
@@ -169,6 +169,18 @@ body {
 
 
 
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.site-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #f29334;
+  margin-left: 10px;
+  font-family: 'Arial Black', sans-serif;
+}
 
 
 

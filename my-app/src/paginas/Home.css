@@ -203,3 +203,47 @@
   color: #777;
   margin-top: 10px;
 }
+
+/* Estilo para o título do site */
+.site-title {
+  text-align: center;
+  margin-top: 20px;
+  color: #f29334;
+ 
+}
+
+.site-title h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.site-title p {
+  font-size: 18px;
+  color: #333;
+}
+
+/* Estilo para o título do site */
+.site-title {
+  text-align: center;
+  margin-top: 20px;
+  color: #f29334;
+  
+}
+
+.site-title h1 {
+  font-size: 48px; /* Aumente o tamanho da fonte */
+  font-family: 'Arial Black', sans-serif; /* Fonte chamativa */
+  
+  background: linear-gradient(45deg,#f29334,#ff7a29);
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* Sombra para destacar o texto */
+  margin-bottom: 10px;
+}
+
+.site-title p {
+  font-size: 20px; /* Aumente o tamanho do subtítulo */
+  color: #555; /* Subtítulo com cor mais sutil */
+  font-family: 'Verdana', sans-serif;
+  font-weight: 300;
+}

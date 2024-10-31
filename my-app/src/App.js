@@ -66,7 +66,8 @@ function App() {
       <div className={`app ${isDarkMode ? 'dark-theme' : ''}`}>
         <header className="header">
           <div className="logo">
-            <img src="favicon.ico" alt="My App" />
+            <img src="favicon.ico" alt="Hiring Scope Logo" />
+            <span className="site-name">Hiring Scope</span>
           </div>
           <nav className="nav">
             {isAuthenticated && (

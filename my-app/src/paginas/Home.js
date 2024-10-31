@@ -31,10 +31,7 @@ function ServicesContainer({ services }) {
           {services.map((service, index) => (
             <li key={index} className="service-box">
               <Link to={`/service/${service.id}`}>
-                {/* Título do Serviço */}
                 <div className="service-header">SERVIÇO: {service.name}</div>
-
-                {/* Foto do Serviço */}
                 <div className="service-photo-container">
                   {service.photo && (
                     <img
@@ -44,8 +41,6 @@ function ServicesContainer({ services }) {
                     />
                   )}
                 </div>
-
-                {/* Informações sobre Quem Postou */}
                 <div className="service-footer">
                   Adicionado por: <strong>{service.userEmail || 'Desconhecido'}</strong>
                 </div>
@@ -69,10 +64,9 @@ function Home({ services, userEmail }) {
     const loadData = () => {
       setTimeout(() => {
         setIsLoading(false);
-      }, 2000); // Simula o carregamento com um delay de 2 segundos
+      }, 2000);
     };
     
-    // Verifica se o usuário já aceitou os cookies
     const cookieConsent = getCookie('cookieConsent');
     if (cookieConsent) {
       setCookiesAccepted(true);
@@ -81,7 +75,6 @@ function Home({ services, userEmail }) {
     loadData();
   }, []);
 
-  // Funções para gerenciar cookies
   const setCookie = (name, value, days) => {
     const date = new Date();
     date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
@@ -101,12 +94,12 @@ function Home({ services, userEmail }) {
   };
 
   const handleAcceptCookies = () => {
-    setCookie('cookieConsent', 'accepted', 30); // Armazena a aceitação por 30 dias
+    setCookie('cookieConsent', 'accepted', 30);
     setCookiesAccepted(true);
   };
 
   const handleDeclineCookies = () => {
-    setCookie('cookieConsent', 'declined', 30); // Armazena a recusa por 30 dias
+    setCookie('cookieConsent', 'declined', 30);
     setCookiesAccepted(true);
   };
 
@@ -126,6 +119,12 @@ function Home({ services, userEmail }) {
         <LoadingSpinner />
       ) : (
         <>
+          {/* Título do site */}
+          <header className="site-title">
+            <h1>Hiring Scope</h1>
+            <p>Encontre e contrate serviços de qualidade em um só lugar!</p>
+          </header>
+
           {/* Carrossel Animado */}
           <Slider {...settings} className="banner-carousel">
             <div className="banner-slide">
