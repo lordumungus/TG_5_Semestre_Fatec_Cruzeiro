@@ -1,190 +1,196 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import CryptoJS from 'crypto-js'; // Importando a biblioteca CryptoJS
 
-function Cadastro({ onRegister }) {
+function Cadastro() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState(''); // Novo estado para confirmar a senha
   const [nome, setNome] = useState('');
   const [cpf, setCpf] = useState('');
   const [telefone, setTelefone] = useState('');
-  const [cep, setCep] = useState('');
   const [endereco, setEndereco] = useState('');
-  const [numeroCasa, setNumeroCasa] = useState(''); // Novo estado para o número da casa
-  const [message, setMessage] = useState(''); // Estado para exibir mensagens de resposta
+  const [numeroCasa, setNumeroCasa] = useState('');
+  const [cep, setCep] = useState('');
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
-  // Função para buscar o endereço pelo CEP
-  const buscarEnderecoPorCep = async (cep) => {
-    try {
-      const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-      const data = await response.json();
-      if (data.erro) {
-        setMessage('CEP não encontrado.');
-        setEndereco('');
-      } else {
-        setEndereco(`${data.logradouro}, ${data.bairro}, ${data.localidade} - ${data.uf}`);
-        setMessage('');
+  const handleCepChange = async (e) => {
+    const cepValue = e.target.value;
+    setCep(cepValue);
+
+    // Valida o CEP para garantir que está no formato correto
+    if (cepValue.length === 8) {
+      try {
+        const response = await fetch(`https://viacep.com.br/ws/${cepValue}/json/`);
+        const data = await response.json();
+
+        // Verifica se o retorno é válido
+        if (!data.erro) {
+          setEndereco(data.logradouro);
+          setNumeroCasa(''); // Limpa o número da casa, se já estiver preenchido
+        } else {
+          setMessage('CEP não encontrado');
+        }
+      } catch (error) {
+        console.error('Erro ao buscar endereço:', error);
+        setMessage('Erro ao buscar endereço. Tente novamente.');
       }
-    } catch (error) {
-      setMessage('Erro ao buscar endereço. Tente novamente.');
-    }
-  };
-
-  const handleCepChange = (e) => {
-    const novoCep = e.target.value;
-    setCep(novoCep);
-
-    if (novoCep.length === 8) {
-      buscarEnderecoPorCep(novoCep);
     } else {
-      setEndereco('');
+      setEndereco(''); // Limpa o endereço se o CEP não estiver completo
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage(''); // Limpa a mensagem antes de uma nova tentativa
+    setMessage('');
 
-    // Verifica se as senhas coincidem
+    // Valida se as senhas coincidem
     if (password !== confirmPassword) {
-      setMessage('As senhas não coincidem!');
+      setMessage('As senhas não coincidem.');
       return;
     }
 
-    if (email && password && nome && cpf && telefone && cep && endereco && numeroCasa) {
-      try {
-        const response = await fetch('http://localhost:5000/register', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email, password, nome, cpf, telefone, endereco, numeroCasa }),
-        });
+    // Criptografando a senha antes de enviar ao servidor
+    const encryptedPassword = CryptoJS.AES.encrypt(password, 'chave-secreta').toString();
 
-        const data = await response.json();
+    try {
+      const response = await fetch('http://localhost:5000/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password: encryptedPassword, // Enviando a senha criptografada
+          nome,
+          cpf,
+          telefone,
+          endereco,
+          numeroCasa,
+          cep, // Incluindo o CEP na requisição
+        }),
+      });
 
-        if (response.ok) {
-          setMessage('Usuário cadastrado com sucesso!'); // Define a mensagem de sucesso
-          onRegister(email, password); // Chama a função passada via props para cadastrar o usuário
-          // Limpa os campos após o cadastro
-          setEmail('');
-          setPassword('');
-          setConfirmPassword('');
-          setNome('');
-          setCpf('');
-          setTelefone('');
-          setCep('');
-          setEndereco('');
-          setNumeroCasa(''); // Limpa o campo do número da casa
-        } else {
-          setMessage(`Erro: ${data.error}`); // Exibe a mensagem de erro retornada pela API
-        }
-      } catch (error) {
-        setMessage('Erro ao cadastrar usuário. Tente novamente mais tarde.'); // Exibe erro genérico em caso de falha na requisição
+      const data = await response.json();
+
+      if (response.ok) {
+        setMessage('Cadastro realizado com sucesso!');
+        setTimeout(() => navigate('/login'), 2000); // Redireciona para a página de login após 2 segundos
+      } else {
+        setMessage(data.error);
       }
-    } else {
-      setMessage('Por favor, preencha todos os campos.');
+    } catch (error) {
+      console.error('Erro ao cadastrar:', error);
+      setMessage('Erro ao cadastrar. Tente novamente.');
     }
   };
 
   return (
-    <div className="cadastro-container">
-      <h2>Cadastro de Usuário</h2>
-      <form onSubmit={handleSubmit} className="cadastro-form">
+    <div className="cadastro-form">
+      <h2>Cadastro</h2>
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>Nome:</label>
-          <input 
-            type="text" 
-            value={nome} 
-            onChange={(e) => setNome(e.target.value)} 
-            placeholder="Digite seu nome" 
-            required 
+          <label htmlFor="nome">Nome:</label>
+          <input
+            type="text"
+            id="nome"
+            name="nome"
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+            required
           />
         </div>
         <div className="form-group">
-          <label>CPF:</label>
-          <input 
-            type="text" 
-            value={cpf} 
-            onChange={(e) => setCpf(e.target.value)} 
-            placeholder="Digite seu CPF" 
-            required 
+          <label htmlFor="email">E-mail:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
           />
         </div>
         <div className="form-group">
-          <label>Telefone:</label>
-          <input 
-            type="text" 
-            value={telefone} 
-            onChange={(e) => setTelefone(e.target.value)} 
-            placeholder="Digite seu telefone" 
-            required 
+          <label htmlFor="cpf">CPF:</label>
+          <input
+            type="text"
+            id="cpf"
+            name="cpf"
+            value={cpf}
+            onChange={(e) => setCpf(e.target.value)}
+            required
           />
         </div>
         <div className="form-group">
-          <label>CEP:</label>
-          <input 
-            type="text" 
-            value={cep} 
-            onChange={handleCepChange} 
-            placeholder="Digite seu CEP" 
-            required 
+          <label htmlFor="telefone">Telefone:</label>
+          <input
+            type="text"
+            id="telefone"
+            name="telefone"
+            value={telefone}
+            onChange={(e) => setTelefone(e.target.value)}
+            required
           />
         </div>
         <div className="form-group">
-          <label>Endereço:</label>
-          <input 
-            type="text" 
-            value={endereco} 
-            onChange={(e) => setEndereco(e.target.value)} 
-            placeholder="Digite seu endereço" 
-            required 
-            readOnly={true} // O endereço será preenchido automaticamente
+          <label htmlFor="cep">CEP:</label>
+          <input
+            type="text"
+            id="cep"
+            name="cep"
+            value={cep}
+            onChange={handleCepChange} // Chama a função ao alterar o CEP
+            required
           />
         </div>
         <div className="form-group">
-          <label>Número da Casa:</label>
-          <input 
-            type="text" 
-            value={numeroCasa} 
-            onChange={(e) => setNumeroCasa(e.target.value)} 
-            placeholder="Digite o número da casa" 
-            required 
+          <label htmlFor="endereco">Endereço:</label>
+          <input
+            type="text"
+            id="endereco"
+            name="endereco"
+            value={endereco}
+            onChange={(e) => setEndereco(e.target.value)}
+            required
           />
         </div>
         <div className="form-group">
-          <label>Email:</label>
-          <input 
-            type="email" 
-            value={email} 
-            onChange={(e) => setEmail(e.target.value)} 
-            placeholder="Digite seu email" 
-            required 
+          <label htmlFor="numeroCasa">Número da Casa:</label>
+          <input
+            type="text"
+            id="numeroCasa"
+            name="numeroCasa"
+            value={numeroCasa}
+            onChange={(e) => setNumeroCasa(e.target.value)}
+            required
           />
         </div>
         <div className="form-group">
-          <label>Senha:</label>
-          <input 
-            type="password" 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)} 
-            placeholder="Digite sua senha" 
-            required 
+          <label htmlFor="password">Senha:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </div>
         <div className="form-group">
-          <label>Confirmar Senha:</label>
-          <input 
-            type="password" 
-            value={confirmPassword} 
-            onChange={(e) => setConfirmPassword(e.target.value)} 
-            placeholder="Confirme sua senha" 
-            required 
+          <label htmlFor="confirmPassword">Confirmar Senha:</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
           />
         </div>
         <button type="submit">Cadastrar</button>
       </form>
-
-      {/* Exibe a mensagem de sucesso ou erro */}
       {message && <p>{message}</p>}
     </div>
   );

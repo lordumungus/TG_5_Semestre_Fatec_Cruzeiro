@@ -3,6 +3,7 @@ const sqlite3 = require('sqlite3').verbose();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const multer = require('multer');
+const CryptoJS = require('crypto-js'); // Importando a biblioteca CryptoJS
 
 const app = express();
 const port = 5000;
@@ -21,15 +22,17 @@ const db = new sqlite3.Database('./banco/database.db', (err) => {
     console.error('Erro ao conectar ao banco de dados:', err.message);
   } else {
     console.log('Conectado ao banco de dados SQLite.');
+    
     // Criar a tabela de usuários se não existir
     db.run(`CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      email TEXT NOT NULL,
+      email TEXT NOT NULL UNIQUE,
       password TEXT NOT NULL,
       nome TEXT,
       cpf TEXT,
       telefone TEXT,
-      endereco TEXT
+      endereco TEXT,
+      numeroCasa TEXT
     )`, (err) => {
       if (err) {
         console.error('Erro ao criar a tabela de usuários:', err.message);
@@ -37,6 +40,7 @@ const db = new sqlite3.Database('./banco/database.db', (err) => {
         console.log('Tabela de usuários garantida.');
       }
     });
+    
     // Criar a tabela de serviços se não existir
     db.run(`CREATE TABLE IF NOT EXISTS services (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -71,6 +75,8 @@ app.post('/register', (req, res) => {
         return res.status(400).json({ error: 'Email já cadastrado' });
       }
 
+   
+
       db.run(
         'INSERT INTO users (email, password, nome, cpf, telefone, endereco, numeroCasa) VALUES (?, ?, ?, ?, ?, ?, ?)',
         [email, password, nome, cpf, telefone, endereco, numeroCasa],
@@ -94,12 +100,33 @@ app.post('/login', (req, res) => {
   const { email, password } = req.body;
 
   if (email && password) {
-    db.get('SELECT * FROM users WHERE email = ? AND password = ?', [email, password], (err, row) => {
+    db.get('SELECT * FROM users WHERE email = ?', [email], (err, row) => {
       if (err) {
         console.error('Erro ao consultar o banco de dados:', err.message);
-        res.status(500).json({ error: 'Erro no servidor' });
-      } else if (row) {
-        res.status(200).json({ message: 'Login bem-sucedido', user: row });
+        return res.status(500).json({ error: 'Erro no servidor' });
+      }
+
+      if (row) {
+        // Descriptografar a senha armazenada
+        const decryptedPassword = CryptoJS.AES.decrypt(row.password, 'chave-secreta').toString(CryptoJS.enc.Utf8);
+        const recriptado = CryptoJS.AES.decrypt(decryptedPassword, 'chave-secreta').toString();
+        const encryptedPassword = CryptoJS.AES.encrypt(password, 'chave-secreta').toString();
+       
+    
+        
+     
+        console.log('row.password:', row.password);
+        console.log('decryptedPassword:', decryptedPassword);
+        console.log('recriptado:', recriptado);
+        console.log('teste:',encryptedPassword);
+        console.log('password:', password);
+
+        if (password === decryptedPassword) {
+          res.status(200).json({ message: 'Login bem-sucedido', user: row });
+        } else {
+          console.log('Senha incorreta:', row.password);
+          res.status(401).json({ error: 'Email ou senha incorretos' });
+        }
       } else {
         res.status(401).json({ error: 'Email ou senha incorretos' });
       }
@@ -108,6 +135,7 @@ app.post('/login', (req, res) => {
     res.status(400).json({ error: 'Dados incompletos' });
   }
 });
+
 
 // Rota para adicionar serviço
 app.post('/add-service', upload.single('photo'), (req, res) => {
@@ -148,11 +176,6 @@ app.get('/api/services', (req, res) => {
   });
 });
 
-// Iniciar o servidor
-app.listen(port, () => {
-  console.log(`Servidor rodando na porta ${port}`);
-});
-
 // Rota para buscar detalhes de um serviço específico
 app.get('/api/service/:id', (req, res) => {
   const serviceId = req.params.id;
@@ -174,3 +197,7 @@ app.get('/api/service/:id', (req, res) => {
   });
 });
 
+// Iniciar o servidor
+app.listen(port, () => {
+  console.log(`Servidor rodando na porta ${port}`);
+});

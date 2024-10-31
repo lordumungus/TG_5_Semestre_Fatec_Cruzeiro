@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom';
 function Login({ onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState(''); // Para exibir mensagens de erro ou sucesso
+  const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage(''); // Limpar mensagem antes de tentar login
+    setMessage('');
 
     try {
       const response = await fetch('http://localhost:5000/login', {
@@ -17,16 +17,16 @@ function Login({ onLogin }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password }), // Enviando a senha sem criptografia
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        onLogin(email); // Função passada via props para armazenar o estado de login
-        navigate('/'); // Redireciona para a página principal
+        onLogin(email);
+        navigate('/');
       } else {
-        setMessage(data.error); // Exibe a mensagem de erro
+        setMessage(data.error);
       }
     } catch (error) {
       console.error('Erro ao fazer login:', error);
@@ -62,8 +62,6 @@ function Login({ onLogin }) {
         </div>
         <button type="submit">Entrar</button>
       </form>
-      
-      {/* Exibe mensagem de erro ou sucesso */}
       {message && <p>{message}</p>}
     </div>
   );
