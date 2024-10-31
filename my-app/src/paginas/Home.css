@@ -3,7 +3,6 @@
   text-align: center;
   padding: 20px;
   background-color: var(--bg-color); /* Usar cor de fundo do tema */
-  border-radius: 10px; /* Bordas arredondadas */
 }
 
 /* Estilos do Carregamento */
@@ -16,7 +15,7 @@
 
 .spinner {
   border: 8px solid #f3f3f3;
-  border-top: 8px solid #db9634; /* Cor do topo do spinner */
+  border-top: 8px solid #db9634;
   border-radius: 50%;
   width: 60px;
   height: 60px;
@@ -32,19 +31,14 @@
 .banner-carousel {
   width: 100%;
   max-width: 1600px;
-  margin: 20px auto; /* Margem para o carrossel */
+  margin: 20px auto;
   position: relative;
-  border-radius: 10px; /* Bordas arredondadas */
-  overflow: hidden; /* Para garantir que as bordas arredondadas sejam respeitadas */
-}
-
-.banner-slide {
-  position: relative;
-  color: white;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .banner-slide img {
-  width: 100%; /* Ajuste para 100% */
+  width: 100%;
   height: 400px;
   object-fit: cover;
 }
@@ -55,27 +49,17 @@
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.6); /* Fundo mais escuro */
+  background-color: rgba(0, 0, 0, 0.6);
   padding: 20px;
   border-radius: 10px;
-  color: white; /* Texto em branco */
-}
-
-.banner-text h1 {
-  font-size: 28px; /* Tamanho da fonte ajustado */
-  margin-bottom: 10px;
-}
-
-.banner-text p {
-  font-size: 16px; /* Tamanho da fonte ajustado */
-  margin-bottom: 20px;
+  color: white;
 }
 
 .btn {
   background-color: #e9d7d7;
   color: rgb(0, 0, 0);
   padding: 10px 20px;
-  border-radius: 5px; /* Bordas mais arredondadas */
+  border-radius: 5px;
   text-decoration: none;
   font-size: 18px;
   transition: background-color 0.3s, border-radius 0.3s;
@@ -83,79 +67,64 @@
 
 .btn:hover {
   background-color: #ffffff;
-  border-radius: 8px; /* Bordas arredondadas ao passar o mouse */
-  border: 2px solid #7728ff; /* Cor do borda ao passar o mouse */
+  border-radius: 8px;
+  border: 2px solid #7728ff;
 }
 
 /* Estilos da lista de serviços */
 .services-container {
-  display: grid;
-  gap: 40px; /* Ajuste para um espaço mais harmônico */
   margin-top: 30px;
   padding: 20px;
-  justify-content: center; 
 }
 
 .services-list {
   list-style: none;
   padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
 }
 
 .service-box {
-  background-color: var(--service-box-bg-color, #ffffff);
-  width: 100%; /* Largura total */
-  max-width: 300px; /* Limitar a largura */
-  height: 200px; /* Ajuste de altura */
-  padding: 10px; /* Padding ajustado */
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra mais profunda */
-  transition: transform 0.3s, border-top 0.3s, color 0.3s;
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 320px;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s, box-shadow 0.3s;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   text-align: center;
 }
 
 .service-box:hover {
-  transform: scale(1.05); /* Escala um pouco menos */
-  border-top: 3px solid #7728ff;
-  color: #7728ff;
+  transform: translateY(-10px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
 }
 
-.service-box h2 {
-  font-size: 22px; /* Tamanho da fonte ajustado */
-  margin-bottom: 10px;
+.service-box h1 {
+  font-size: 24px;
+  margin-bottom: 8px;
+  color: #4a4a4a;
 }
 
-.service-box p {
-  font-size: 14px; /* Tamanho da fonte ajustado */
+.service-box strong {
+  font-size: 14px;
+  color: #777;
 }
 
-/* Container de boas-vindas */
-.welcome-container {
-  margin-top: 20px;
-}
-
-/* Estilos da imagem de serviço */
 .service-photo {
-  width: 80px; /* Largura reduzida */
-  height: 80px; /* Altura reduzida */
-  object-fit: cover; /* Ajusta a imagem para cobrir o contêiner sem distorcer */
-  border-radius: 8px; /* Adiciona bordas arredondadas */
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-top: 15px;
 }
 
-/* Scrollbar customizada */
-.services-list {
-  max-height: 500px; /* Ajuste a altura conforme necessário */
-  overflow-y: scroll;
-  scrollbar-width: none; /* Para Firefox */
-  -ms-overflow-style: none; /* Para Internet Explorer e Edge */
-}
-
-.services-list::-webkit-scrollbar {
-  display: none; /* Para Chrome, Safari e Opera */
-}
 .cookie-notice {
   position: fixed;
   bottom: 20px;
@@ -171,4 +140,66 @@
 
 .cookie-notice button {
   margin: 0 5px;
+  background-color: #7728ff;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cookie-notice button:hover {
+  background-color: #5a22cc;
+}
+/* Estilos do Card de Serviço */
+.service-box {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 320px;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.service-box:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Estilo para o Título */
+.service-header {
+  font-size: 22px;
+  font-weight: bold;
+  color: #4a4a4a;
+  margin-bottom: 15px;
+}
+
+/* Container da Foto do Serviço */
+.service-photo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.service-photo {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Informações de Quem Postou */
+.service-footer {
+  font-size: 14px;
+  color: #777;
+  margin-top: 10px;
 }

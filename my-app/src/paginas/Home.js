@@ -31,18 +31,24 @@ function ServicesContainer({ services }) {
           {services.map((service, index) => (
             <li key={index} className="service-box">
               <Link to={`/service/${service.id}`}>
-                <strong><h1>SERVIÇO: {service.name}</h1></strong>
-                <strong>HORA COBRADA: R$ {service.rate} por hora</strong>
-                <strong>LOCAL: {service.location}</strong>
-                {service.photo && (
-                  <img
-                    src={`data:image/jpeg;base64,${service.photo}`}
-                    alt={service.name}
-                    className="service-photo"
-                  />
-                )}
-                <strong>{service.userEmail}</strong>
-                {service.userEmail && <span> (Adicionado por: {service.userEmail})</span>}
+                {/* Título do Serviço */}
+                <div className="service-header">SERVIÇO: {service.name}</div>
+
+                {/* Foto do Serviço */}
+                <div className="service-photo-container">
+                  {service.photo && (
+                    <img
+                      src={`data:image/jpeg;base64,${service.photo}`}
+                      alt={service.name}
+                      className="service-photo"
+                    />
+                  )}
+                </div>
+
+                {/* Informações sobre Quem Postou */}
+                <div className="service-footer">
+                  Adicionado por: <strong>{service.userEmail || 'Desconhecido'}</strong>
+                </div>
               </Link>
             </li>
           ))}
@@ -53,6 +59,7 @@ function ServicesContainer({ services }) {
     </div>
   );
 }
+
 
 function Home({ services, userEmail }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -87,8 +94,8 @@ function Home({ services, userEmail }) {
     const ca = document.cookie.split(';');
     for (let i = 0; i < ca.length; i++) {
       let c = ca[i];
-      while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
     }
     return null;
   };
