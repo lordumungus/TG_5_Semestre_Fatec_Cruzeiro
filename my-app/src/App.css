@@ -82,7 +82,7 @@ body {
   --link-hover-color: #ffcc00;
 
   --footer-bg-color: #222;
-    --button-bg-color: #555;
+  --button-bg-color: #555;
   
   --login-button-bg-color: #f29334;
 
@@ -156,32 +156,45 @@ body {
   color: #f29334; /* Cor do link ao passar o mouse */
 }
 
-.toggle-theme-btn{
+.toggle-theme-btn {
   color: #f29334;
   font-size: small;
 }
-.toggle-theme-btn:hover{
+
+.toggle-theme-btn:hover {
   color: #fd840a;
   font-size: 14px;
   text-decoration: underline;
 }
-/* Outros estilos como antes, mas com fontes reduzidas e cores ajustadas */
 
-
-
+/* Estilos do logo e nome da empresa */
 .logo {
   display: flex;
   align-items: center;
+  cursor: pointer; /* Para indicar que o logo é clicável */
 }
 
 .site-name {
-  font-size: 1.5rem;
+  font-size: 2rem; /* Aumentar o tamanho da fonte */
   font-weight: bold;
-  color: #f29334;
+  color: #f29334; /* Cor do nome da empresa */
   margin-left: 10px;
   font-family: 'Arial Black', sans-serif;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Sombra do texto para destaque */
+  transition: color 0.3s; /* Transição suave para efeitos de hover */
 }
 
+.site-name:hover {
+  color: #fd840a; /* Mudança de cor ao passar o mouse */
+}
 
+/* Estilos do ícone */
+.logo img {
+  width: 40px; /* Ajuste o tamanho do ícone conforme necessário */
+  height: auto; /* Manter a proporção do ícone */
+  transition: transform 0.3s; /* Transição suave para o efeito de hover */
+}
 
-
+.logo img:hover {
+  transform: scale(1.1); /* Aumenta ligeiramente o ícone ao passar o mouse */
+}

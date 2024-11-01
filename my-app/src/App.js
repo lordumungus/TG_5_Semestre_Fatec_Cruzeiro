@@ -6,6 +6,7 @@ import Categories from './paginas/Categories';
 import Ofertas from './paginas/Ofertas';
 import Contato from './paginas/Contato';
 import Home from './paginas/Home';
+import Termos from './paginas/Termos';
 import AddService from './paginas/AddService';
 import Login from './paginas/Login';
 import Cadastro from './paginas/Cadastro';
@@ -66,8 +67,10 @@ function App() {
       <div className={`app ${isDarkMode ? 'dark-theme' : ''}`}>
         <header className="header">
           <div className="logo">
-            <img src="favicon.ico" alt="Hiring Scope Logo" />
-            <span className="site-name">Hiring Scope</span>
+            <Link to="/"> {/* Envolva o nome da empresa em um Link para redirecionar para a Home */}
+              <img src="favicon.ico" alt="Hiring Scope Logo" />
+              <span className="site-name">Hiring Scope</span>
+            </Link>
           </div>
           <nav className="nav">
             {isAuthenticated && (
@@ -100,6 +103,7 @@ function App() {
             <Route path="/contact" element={<Contato />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
             <Route path="/cadastro" element={<Cadastro onRegister={handleRegister} />} />
+            <Route path="/termos" element={<Termos />} /> {/* Define a rota de Termos */}
             <Route path="/service/:id" element={<ServiceDetail />} />
           </Routes>
           {showAddService && <AddService onAddService={handleAddService} userEmail={userEmail} />}
