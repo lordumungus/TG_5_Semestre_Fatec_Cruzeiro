@@ -52,7 +52,7 @@
   background-color: rgba(0, 0, 0, 0.6);
   padding: 20px;
   border-radius: 10px;
-  color: white;
+  color: #f29334;
 }
 
 .btn {
@@ -68,7 +68,7 @@
 .btn:hover {
   background-color: #ffffff;
   border-radius: 8px;
-  border: 2px solid #7728ff;
+  border: 2px solid #f29334;
 }
 
 /* Estilos da lista de serviços */
@@ -87,7 +87,7 @@
 }
 
 .service-box {
-  background-color: #ffffff;
+  background-color: #f29334;
   width: 100%;
   max-width: 320px;
   padding: 20px;
@@ -246,4 +246,32 @@
   color: #555; /* Subtítulo com cor mais sutil */
   font-family: 'Verdana', sans-serif;
   font-weight: 300;
+}
+
+.input-with-icon {
+  display: flex;
+  align-items: center;
+}
+
+.input-with-icon input {
+  flex: 1;
+}
+
+.icon-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0 8px;
+}
+
+.input-container {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
 }

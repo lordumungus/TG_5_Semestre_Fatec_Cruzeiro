@@ -11,15 +11,19 @@ function Cadastro() {
   const [cpf, setCpf] = useState('');
   const [telefone, setTelefone] = useState('');
   const [endereco, setEndereco] = useState('');
+  const [bairro, setBairro] = useState('');
+  const [cidade, setCidade] = useState('');
+  const [estado, setEstado] = useState('');
   const [numeroCasa, setNumeroCasa] = useState('');
   const [cep, setCep] = useState('');
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [message, setMessage] = useState('');
-  const [loading, setLoading] = useState(true); // Estado para controlar o spinner
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Simulando um carregamento inicial da página
     setTimeout(() => setLoading(false), 1000);
   }, []);
 
@@ -37,12 +41,15 @@ function Cadastro() {
 
     if (cepValue.length === 8) {
       try {
-        setLoading(true); // Ativa o spinner durante a busca do CEP
+        setLoading(true);
         const response = await fetch(`https://viacep.com.br/ws/${cepValue}/json/`);
         const data = await response.json();
 
         if (!data.erro) {
           setEndereco(data.logradouro);
+          setBairro(data.bairro);
+          setCidade(data.localidade);
+          setEstado(data.uf);
           setNumeroCasa('');
         } else {
           setMessage('CEP não encontrado');
@@ -51,10 +58,13 @@ function Cadastro() {
         console.error('Erro ao buscar endereço:', error);
         setMessage('Erro ao buscar endereço. Tente novamente.');
       } finally {
-        setLoading(false); // Desativa o spinner após a busca
+        setLoading(false);
       }
     } else {
       setEndereco('');
+      setBairro('');
+      setCidade('');
+      setEstado('');
     }
   };
 
@@ -75,7 +85,7 @@ function Cadastro() {
     const encryptedPassword = CryptoJS.AES.encrypt(password, 'chave-secreta').toString();
 
     try {
-      setLoading(true); // Ativa o spinner durante a submissão do formulário
+      setLoading(true);
       const response = await fetch('http://localhost:5000/register', {
         method: 'POST',
         headers: {
@@ -88,6 +98,9 @@ function Cadastro() {
           cpf,
           telefone,
           endereco,
+          bairro,
+          cidade,
+          estado,
           numeroCasa,
           cep,
         }),
@@ -105,7 +118,7 @@ function Cadastro() {
       console.error('Erro ao cadastrar:', error);
       setMessage('Erro ao cadastrar. Tente novamente.');
     } finally {
-      setLoading(false); // Desativa o spinner após a submissão
+      setLoading(false);
     }
   };
 
@@ -184,6 +197,39 @@ function Cadastro() {
               />
             </div>
             <div className="form-group">
+              <label htmlFor="bairro">Bairro:</label>
+              <input
+                type="text"
+                id="bairro"
+                name="bairro"
+                value={bairro}
+                onChange={(e) => setBairro(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="cidade">Cidade:</label>
+              <input
+                type="text"
+                id="cidade"
+                name="cidade"
+                value={cidade}
+                onChange={(e) => setCidade(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="estado">Estado:</label>
+              <input
+                type="text"
+                id="estado"
+                name="estado"
+                value={estado}
+                onChange={(e) => setEstado(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
               <label htmlFor="numeroCasa">Número da Casa:</label>
               <input
                 type="text"
@@ -196,28 +242,43 @@ function Cadastro() {
             </div>
             <div className="form-group">
               <label htmlFor="password">Senha:</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              <div className="input-container">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  name="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <span
+                  className="toggle-password"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? "🙈" : "👁️"}
+                </span>
+              </div>
             </div>
             <div className="form-group">
               <label htmlFor="confirmPassword">Confirmar Senha:</label>
-              <input
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
+              <div className="input-container">
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                />
+                <span
+                  className="toggle-password"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                >
+                  {showConfirmPassword ? "🙈" : "👁️"}
+                </span>
+              </div>
             </div>
 
-            {/* Termos e Condições */}
             <div className="form-group" style={{ display: 'flex', alignItems: 'center' }}>
               <input
                 type="checkbox"
